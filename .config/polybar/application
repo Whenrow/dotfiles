@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Custom Rofi Script
+
+BORDER="#376380"
+SEPARATOR="#376380"
+FOREGROUND="#CACACA"
+BACKGROUND="#376380"
+
+# Launch Rofi
+rofi -no-lazy-grab -show drun \
+-display-drun "Open " -drun-display-format "{name}" \
+-hide-scrollbar true \
+-bw 0 \
+-lines 10 \
+-line-padding 10 \
+-padding 20 \
+-width 30 \
+-xoffset 10 -yoffset 40 \
+-location 0 \
+-columns 1 \
+-font "Ubuntu Mono 14" \
+-show-icons -icon-theme "Flat Remix" \
+-show-color \
+-color-normal "$BACKGROUND,$FOREGROUND,$BACKGROUND,$BACKGROUND,$BACKGROUND" \
+-color-active "$BACKGROUND,$FOREGROUND,$BACKGROUND,$BACKGROUND,$BACKGROUND" \
+-color-urgent "$BACKGROUND,$FOREGROUND,$BACKGROUND,$BACKGROUND,$BACKGROUND" \
+-color-window "$BACKGROUND,$BORDER,$SEPARATOR"
+# More Options
+# -fullscreen \
+
+# Theming help
+# color window = background, border, separator
+# color normal = background, foreground, background-alt, highlight-background, highlight-foreground
+# color active = background, foreground, background-alt, highlight-background, highlight-foreground
+# color urgent = background, foreground, background-alt, highlight-background, highlight-foreground
