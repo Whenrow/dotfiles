@@ -1,3 +1,10 @@
+if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim"'))
+	echo "Downloading junegunn/vim-plug to manage plugins..."
+	silent !mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/
+	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim
+	autocmd VimEnter * PlugInstall
+endif
+
 call plug#begin('~/.config/nvim/plugged')
 Plug 'junegunn/fzf', { 'do': './install ' }
 Plug 'junegunn/fzf.vim'
@@ -9,7 +16,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'zackhsi/fzf-tags'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
-Plug 'flazz/vim-colorschemes'
+Plug 'rakr/vim-one'
 call plug#end()
 
 let mapleader=" "
@@ -93,7 +100,7 @@ nmap <leader>w :bd<CR>
 nmap <C-l> :noh<CR>
 " Trailing whitespace at save
 autocmd BufWritePre * %s/\s\+$//e
-inoremap <F9>   <NOP>
+map! <F9>   <NOP>
 "==================
 " Tree view
 "==================
