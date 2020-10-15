@@ -14,7 +14,7 @@ configuration {
 	location: 0;
 	yoffset: 0;
     xoffset: 0;
-	fake-transparency: false;
+	fake-transparency: true;
 	hide-scrollbar: true;
 	bw: 0;
     fullscreen: false;
@@ -49,8 +49,8 @@ fg: #ffffff;
 }
 
 * {
-  background-color: #00000000;
-  font: "Iosevka 12";
+  background-color: #00000030;
+  font: "literation 12";
 }
 
 window {
@@ -90,9 +90,9 @@ element selected {
 
 inputbar {
   children: [entry];
-  padding: 4 4 4 4;
+  padding: 5 5 5 5;
   /* change this colors to change style*/
-  background-color: @red;
+  background-color: @blue;
   border: 0 0 0 0;
   border-color: @fg;
 }
