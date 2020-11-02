@@ -25,8 +25,6 @@ exec_always compton --config ~/.config/compton/compton.conf
 exec_always "feh --bg-fill ~/.config/i3/wallpaper.jpg"
 exec_always "xrandr --auto --output HDMI-1 --mode 1920x1080 --right-of eDP-1"
 exec_always "sh ~/.config/polybar/launch.sh"
-# exec_always --no-startup-id compton -bcC -i 0.8 -e 0.8 --sw-opti
-# exec_always "pulseaudio -D"
 exec "xset r rate 130 15"
 
 # Before i3 v4.8, we used to recommend this one as the default:
@@ -51,12 +49,7 @@ bindsym $mod+Shift+A kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+d exec rofi -theme ~/.config/rofi/config -show drun
-# bindsym $mod+d exec ~/.config/polybar/application
-
-
-# bindsym $mod+d exec --no-startup-id rofi -theme $HOME/.config/rofi/rofi_bar -m 0 -width 1500 -theme-str "*{accent: ${FOREGROUND:-#000000};} -dmenu
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -130,9 +123,7 @@ bindsym $mod+agrave workspace $ws10
 
 # startup config
 exec i3-msg 'workspace $ws1;exec thunderbird'
-exec i3-msg 'exec dino'
 exec i3-msg 'workspace $ws2;exec firefox'
-exec i3-msg 'workspace $ws3;exec atom'
 
 # switch to next workspace
 bindsym Mod1+Tab workspace next_on_output
