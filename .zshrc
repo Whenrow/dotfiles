@@ -35,3 +35,13 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
+export PATH="$HOME/.local/bin:$PATH"
+export SUDO_ASKPASS=/usr/bin/ssh-askpass
+
+function fkill () {
+    pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+    if test -n "$pid"; then
+        echo $pid | xargs kill -9
+    fi
+}

@@ -69,7 +69,6 @@ nmap <leader>n <Plug>(coc-rename)
 let g:fzf_buffers_jump = 1
 let g:fzf_layout = { 'window': {'width': 0.8, 'height': 0.8}}
 " [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R -f .tags'
 if expand('%:p:h:h') == '/home/whe/src'
     cd ..
 endif
@@ -96,8 +95,12 @@ nmap <leader>gt <Plug>(fzf_tags)
 "==================
 "open Tig blame
 nmap <leader>b :Gblame<CR>
+"close buffer
 nmap <leader>w :bd<CR>
+"clear previous search highlight
 nmap <C-l> :noh<CR>
+"save file
+map <Esc><Esc> :w<CR>
 " Trailing whitespace at save
 autocmd BufWritePre * %s/\s\+$//e
 map! <F9>   <NOP>
@@ -110,7 +113,7 @@ let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 20
 let g:netrw_list_hide= '.*\.pyc$,_pycache__'
-nnoremap <Leader>, :Vexplore<CR>
+nnoremap <silent>- :Vex<CR>
 
 "==================
 " Greper

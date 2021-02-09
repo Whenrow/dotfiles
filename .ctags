@@ -1,0 +1,5 @@
+--langmap=javascript:.js
+--exclude=lib
+--exclude=py.js
+
+--regex-javascript=/^[ \t]*\([A-Za-z0-9_$]\{1,\}\)[ \t]*:[ \t]*function[^\*][^\*]/\1/F,Function,Functions/b

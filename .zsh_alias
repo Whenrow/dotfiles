@@ -2,3 +2,5 @@ alias git-fixup='git log --oneline | fzf | cut -d " " -f 1 | xargs git commit --
 alias dotfile='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias update='sudo apt update && sudo apt upgrade && sudo apt autoremove'
 alias python='ipython'
+alias gfom='git fetch origin master'
+alias grbm='git rebase origin/master'
