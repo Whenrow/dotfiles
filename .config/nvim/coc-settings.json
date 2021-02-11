@@ -1,5 +1,7 @@
 {
     "python.jediEnabled": false,
-    "python.setLinter": "flake8"
+    "python.linting.enabled": false,
+    "python.linting.pylintEnabled": true,
+    "python.analysis.typeCheckingMode": "off"
 }
 
