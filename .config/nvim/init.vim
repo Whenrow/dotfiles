@@ -60,7 +60,6 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " Symbol renaming.
 nmap <leader>n <Plug>(coc-rename)
 
-:iabbrev pudb import pudb;pudb.set_trace()
 "=================================================
 "   FZF    (from Dorian Karter - doriankarter.com)
 "=================================================
@@ -88,7 +87,7 @@ nnoremap <leader><leader> :Commands<CR>
 nnoremap <leader>t :Tags<CR>
 nnoremap <leader>r :BTags<CR>
 nnoremap <leader>l :Lines<CR>
-nmap <leader>gt <Plug>(fzf_tags)
+nmap gd <Plug>(fzf_tags)
 
 "==================
 " MISC
@@ -103,7 +102,10 @@ nmap <C-l> :noh<CR>
 map <Esc><Esc> :w<CR>
 " Trailing whitespace at save
 autocmd BufWritePre * %s/\s\+$//e
+" Disable F9 (used as PTT button into Discord)
 map! <F9>   <NOP>
+" Python debugging made easy
+:iabbrev pudb import pudb;pudb.set_trace()
 "==================
 " Tree view
 "==================
@@ -130,7 +132,7 @@ nnoremap <Leader>gf :Grep <C-r><C-w><CR>
 " Snippets
 "===================
 "" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
+imap <silent> <C-l> <Plug>(coc-snippets-expand)
 
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = '<Tab>'

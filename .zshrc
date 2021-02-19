@@ -18,7 +18,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf fd colored-man-pages zsh-autosuggestions zsh-syntax-highlighting forgit postgres extract)
+plugins=(git fzf fd colored-man-pages zsh-autosuggestions zsh-syntax-highlighting forgit postgres extract vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -37,6 +37,7 @@ fi
 
 export PATH="$HOME/.local/bin:$PATH"
 export SUDO_ASKPASS=/usr/bin/ssh-askpass
+export VI_MODE_SET_CURSOR=true
 
 function fkill () {
     pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
