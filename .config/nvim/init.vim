@@ -83,7 +83,6 @@ fun! FzfOmniFiles()
 endfun
 nnoremap <C-b> :Buffers<CR>
 nnoremap <C-p> :call FzfOmniFiles()<CR>
-nnoremap <leader><leader> :Commands<CR>
 nnoremap <leader>t :Tags<CR>
 nnoremap <leader>r :BTags<CR>
 nnoremap <leader>l :Lines<CR>
@@ -106,6 +105,10 @@ autocmd BufWritePre * %s/\s\+$//e
 map! <F9>   <NOP>
 " Python debugging made easy
 :iabbrev pudb import pudb;pudb.set_trace()
+" edit vim config
+nmap <leader>e :e! ~/.config/nvim/init.vim<CR>
+" Open Git status menu
+nnoremap <leader><leader> :Ge:<CR>
 "==================
 " Tree view
 "==================
