@@ -1,7 +1,7 @@
 {
-    "python.jediEnabled": false,
-    "python.linting.enabled": false,
     "python.linting.pylintEnabled": true,
-    "python.analysis.typeCheckingMode": "off"
+    "python.analysis.typeCheckingMode": "off",
+    "eslint.alwaysShowStatus": "true",
+    "coc.preferences.extensionUpdateCheck": "weekly"
 }
 

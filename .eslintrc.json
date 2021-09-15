@@ -23,7 +23,7 @@
         "curly": ["warn"],
         "eol-last": ["error"],
         "eqeqeq": ["warn", "smart"],
-        "indent": ["off", 4, {"SwitchCase": 1}],
+        "indent": ["off", 4],
         "key-spacing": ["warn"],
         "keyword-spacing": ["warn"],
         "linebreak-style": ["error", "unix"],

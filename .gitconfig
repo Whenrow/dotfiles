@@ -20,3 +20,7 @@
 	whitespace = red reverse
 [push]
 	default = current
+[alias]
+        co = checkout
+	push = push -u
+	pr = pull --rebase
