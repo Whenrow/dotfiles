@@ -25,7 +25,7 @@ exec_always compton --config ~/.config/compton/compton.conf
 exec_always "feh --bg-fill ~/.config/i3/chicago.webp"
 exec_always "xrandr --auto --output HDMI-1 --mode 1920x1080 --right-of eDP-1"
 exec_always "sh ~/.config/polybar/launch.sh"
-exec "xset r rate 130 15"
+exec "xset r rate 110 25"
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
