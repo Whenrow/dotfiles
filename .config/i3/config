@@ -196,6 +196,10 @@ bindsym $mod+Control+Right move workspace to output right
 # Move all workspaces at once
 bindsym $mod+Control+Home [class=".*"] move workspace to output eDP-1
 
+# Screen brithness
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 5"
+bindsym XF86MonBrightnessUp exec "xbacklight -inc 5"
+
 # Volume control
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+
 bindsym XF86AudioLowerVolume exec amixer -q set Master 5%-
