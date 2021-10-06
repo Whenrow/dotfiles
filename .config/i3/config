@@ -39,7 +39,6 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+x exec tilix -e ranger
 bindsym F1 exec tilix --quake
 
 # kill focused window

@@ -40,6 +40,9 @@ export PYTHONPATH="$HOME/src/odoo:$PYTHONPATH"
 export SUDO_ASKPASS=/usr/bin/ssh-askpass
 export VI_MODE_SET_CURSOR=true
 
+# nnn config
+export NNN_PLUG='f:finder;o:fzopen;p:mocplay;d:diffs;t:nmount;v:imgview'
+
 function fkill () {
     pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
 
