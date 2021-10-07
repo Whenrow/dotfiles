@@ -117,6 +117,8 @@ command! BD call fzf#run(fzf#wrap({
 "==================
 "open config files
 nmap <leader>c :Files ~/.config/<CR>
+"open zsh files
+nmap <leader>z :e ~/.zshrc<CR>
 "open Tig blame
 nmap <leader>b :Git blame<CR>
 "open git log
