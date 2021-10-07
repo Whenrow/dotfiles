@@ -23,7 +23,7 @@ font pango:DejaVu Sans Mono 8
 exec_always compton --config ~/.config/compton/compton.conf
 
 exec_always "feh --bg-fill ~/.config/i3/chicago.webp"
-exec_always "xrandr --auto --output HDMI-1 --mode 1920x1080 --right-of eDP-1"
+exec_always "xrandr --auto --output HDMI1 --mode 1920x1080 --right-of eDP1"
 exec_always "sh ~/.config/polybar/launch.sh"
 exec "xset r rate 110 25"
 
@@ -216,6 +216,6 @@ bindsym $mod+F9 exec dmenumount
 bindsym $mod+F10 exec dmenuumount
 
 # Gaps4
-for_window [class=".*"] border pixel 0
+for_window [class=".*"] border pixel 2
 
 gaps inner 10
