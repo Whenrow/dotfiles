@@ -142,6 +142,9 @@ nmap <silent> ]c :cnext<CR>zz
 nmap <silent> [c :cprevious<CR>zz
 " split line at cursor
 nnoremap K :i<CR><esc>
+" Center next highlighted word
+nnoremap n nzz
+nnoremap N Nzz
 
 " Use * command on visual selection
 function! s:VSetSearch()
