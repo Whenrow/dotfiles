@@ -39,6 +39,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export PYTHONPATH="$HOME/src/odoo:$PYTHONPATH"
 export SUDO_ASKPASS=/usr/bin/ssh-askpass
 export VI_MODE_SET_CURSOR=true
+export ODOO_RC="$HOME/.config/odoorc"
 
 # nnn config
 export NNN_PLUG='f:finder;o:fzopen;p:mocplay;d:diffs;t:nmount;v:imgview'
