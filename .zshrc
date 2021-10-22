@@ -35,8 +35,15 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
+# Path
 export PATH="$HOME/.local/bin:$PATH"
 export PYTHONPATH="$HOME/src/odoo:$PYTHONPATH"
+
+# Forgit options
+export FORGIT_COPY_CMD='xclip -selection clipboard'
+export FORGIT_LOG_GRAPH_ENABLE='false'
+
+# Misc options
 export SUDO_ASKPASS=/usr/bin/ssh-askpass
 export VI_MODE_SET_CURSOR=true
 export ODOO_RC="$HOME/.config/odoorc"
