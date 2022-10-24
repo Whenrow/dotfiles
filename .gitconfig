@@ -24,3 +24,7 @@
         co = checkout
 	push = push -u
 	pr = pull --rebase
+[checkout]
+	defaultRemote = origin
+[merge]
+	conflictstyle = diff3

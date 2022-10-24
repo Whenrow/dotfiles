@@ -17,7 +17,7 @@
     "rules": {
         "array-bracket-spacing": ["warn", "never"],
         "brace-style": "warn",
-        "camelcase": ["warn", {"properties": "never"}],
+        "camelcase": ["off", {"properties": "never"}],
         "comma-dangle": ["off"],
         "comma-spacing": ["warn", {"before": false, "after": true}],
         "curly": ["warn"],
@@ -34,7 +34,7 @@
         "no-unused-expressions": ["warn"],
         "no-unused-vars": ["warn", {"args": "none"}],
         "no-use-before-define": ["warn", "nofunc"],
-        "object-curly-spacing": ["warn", "never"],
+        "object-curly-spacing": ["off", "never"],
         "quotes": ["off", "double"],
         "semi": ["error", "always"],
         "semi-spacing": ["warn", {"before": false, "after": true}],

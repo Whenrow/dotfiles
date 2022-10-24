@@ -8,6 +8,7 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH="/home/whe/.oh-my-zsh"
 
+export EDITOR="nvim"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -18,14 +19,19 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(fzf fd colored-man-pages zsh-autosuggestions zsh-syntax-highlighting forgit postgres extract vi-mode)
+plugins=(fzf fd colored-man-pages zsh-autosuggestions forgit postgres extract vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
 source ~/.zsh_alias
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_OPTS="--layout reverse"
+export FZF_BASE=~/.config/nvim/plugged/fzf
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+--layout reverse"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -58,4 +64,3 @@ function fkill () {
         echo $pid | xargs kill -9
     fi
 }
-source ~/.zsh_completion

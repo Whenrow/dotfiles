@@ -1,24 +1,30 @@
-if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim"'))
-	echo "Downloading junegunn/vim-plug to manage plugins..."
-	silent !mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/
-	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim
-	autocmd VimEnter * PlugInstall
-endif
-
 call plug#begin('~/.config/nvim/plugged')
+"======
+"to remove later
+"===========
 Plug 'junegunn/fzf', { 'do': './install ' }
 Plug 'junegunn/fzf.vim'
-Plug 'stsewd/fzf-checkout.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'stsewd/fzf-checkout.vim'
+" Plug 'zackhsi/fzf-tags'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'onsails/lspkind-nvim'
+
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
-Plug 'zackhsi/fzf-tags'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'honza/vim-snippets'
-Plug 'rakr/vim-one'
+Plug 'neovim/nvim-lspconfig',
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'lewis6991/spellsitter.nvim'
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 call plug#end()
 
 let mapleader=" "
@@ -37,31 +43,10 @@ set noswapfile
 if (has("termguicolors"))
     set termguicolors
 endif
-colorscheme one
-let g:airline_theme='bubblegum'
+let g:catppuccin_flavour = "mocha"
+colorscheme catppuccin
 
-"====================
-" COC
-"====================
-let g:coc_disable_startup_warning = 1
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Symbol renaming.
-nmap <leader>n <Plug>(coc-rename)
-
+lua require('whenrow')
 "=================================================
 "   FZF    (from Dorian Karter - doriankarter.com)
 "=================================================
@@ -81,17 +66,18 @@ set tags=.tags
 fun! FzfOmniFiles()
   let is_git = system('git status')
   if v:shell_error
-    :Files
+    :Telescope find_files
   else
-    :GFiles
+    :Telescope git_files
   endif
 endfun
-nnoremap <C-b> :Buffers<CR>
+nnoremap <C-b> :Telescope buffers<CR>
 nnoremap <C-p> :call FzfOmniFiles()<CR>
-nnoremap <leader>t :Tags<CR>
+nnoremap <leader>t :Telescope tags<CR>
 nnoremap <leader>r :BTags<CR>
 nnoremap <leader>l :Lines<CR>
-nmap gd <Plug>(fzf_tags)
+nnoremap <leader>T :Telescope<CR>
+nnoremap gd: Telescope tags<CR><C-w><C-r>
 
 "FZF Buffer Delete
 
@@ -115,10 +101,6 @@ command! BD call fzf#run(fzf#wrap({
 "==================
 " MISC
 "==================
-"open config files
-nmap <leader>c :Files ~/.config/<CR>
-"open zsh files
-nmap <leader>z :e ~/.zshrc<CR>
 "open Tig blame
 nmap <leader>b :Git blame<CR>
 "open git log
@@ -133,8 +115,6 @@ map <Esc><Esc> :w<CR>
 autocmd BufWritePre * %s/\s\+$//e
 " Python debugging made easy
 :iabbrev pudb import pudb;pudb.set_trace()
-" edit vim config
-nmap <leader>e :e! ~/.config/nvim/init.vim<CR>
 " Open Git status menu
 nnoremap <leader><leader> :Ge:<CR>
 " Quickfix list
@@ -145,6 +125,25 @@ nnoremap K :i<CR><esc>
 " Center next highlighted word
 nnoremap n nzz
 nnoremap N Nzz
+" Reload nvim config
+nnoremap <leader>cr :source $MYVIMRC<CR>
+" use ' instead of "
+nnoremap "' ysi"'ds"
+" use " instead of '
+nnoremap '" ysi'"ds'
+"
+" ----------------------
+" Configuration shortcuts
+" ----------------------
+" edit vim config
+nmap <leader>ce :e! ~/.config/nvim/init.vim<CR>
+" edit lua config
+nmap <leader>cl :e! ~/.config/nvim/lua/whenrow/init.lua<CR>
+"open .config/ folder in FZF
+nmap <leader>cc :lua require'telescope.builtin'.find_files({search_dirs={'~/.config/'},hidden=true})<cr>
+"open zshrc
+nmap <leader>cz :e ~/.zshrc<CR>
+"
 
 " Use * command on visual selection
 function! s:VSetSearch()
@@ -173,17 +172,12 @@ nnoremap <silent>- :Vex<CR>
 "==================
 " Greper
 "===================
-function! RgFzf(query)
-    call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case -g "*.{py,js,xml,scss}" '.shellescape(a:query), 0, 0)
-endfunction
-command! -nargs=* -bang Grep call RgFzf(<q-args>)
-nnoremap <Leader>/ :Grep<space>
-nnoremap <leader>e/ :Grep raise [A-Z][a-z]+Error\(<CR>
-nnoremap <Leader>gf :Grep <C-r><C-w><CR>
+nnoremap <Leader>/ :Telescope live_grep<CR>
+nnoremap <Leader>gf :Telescope grep_string<CR>
 
 "==================
 " Snippets
 "===================
 "" Use <C-l> for trigger snippet expand.
-imap <silent> <C-l> <Plug>(coc-snippets-expand)
+" imap <silent> <C-l> <Plug>(coc-snippets-expand)
 

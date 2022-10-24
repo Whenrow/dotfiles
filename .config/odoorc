@@ -1,6 +1,6 @@
 [options]
 addons_path = /home/whe/src/enterprise,/home/whe/src/odoo/addons
-admin_passwd = admin
+admin_passwd = $pbkdf2-sha512$25000$TakVYizFmBPiXCtl7H2vNQ$gnTxqhixunnvQJu0r1XLQNWiFZjdIl0zT8L5CxlefW.MlXIE235CYozcfUsCq.Z9x7JUgKqdFicmfc0Yq8QSGw
 csv_internal_sep = ,
 data_dir = /home/whe/.local/share/Odoo
 db_host = False
@@ -11,6 +11,7 @@ db_sslmode = prefer
 db_template = template0
 db_user = False
 dbfilter =
+default_productivity_apps = False
 demo = {}
 email_from = False
 geoip_database = /usr/share/GeoIP/GeoLite2-City.mmdb
