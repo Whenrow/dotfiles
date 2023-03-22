@@ -2,8 +2,18 @@
 	name = William Henrotin
 	email = whe@odoo.com
 [core]
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	; pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta
 	editor = nvim
+[interactive]
+        diffFilter = delta --color-only
+
+[delta]
+        navigate = true
+        light = false
+[diff]
+        colorMoved = default
+
 [color]
 	ui = true
 [color "diff-highlight"]
@@ -26,5 +36,5 @@
 	pr = pull --rebase
 [checkout]
 	defaultRemote = origin
-[merge]
-	conflictstyle = diff3
+[pager]
+        diff = delta
