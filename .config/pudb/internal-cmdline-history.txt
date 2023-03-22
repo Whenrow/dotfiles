@@ -1,0 +1,387 @@
+self.current_quality_check_id
+self.current_quality_check_id.title
+self.title
+self.workorder_id
+self
+self.workorder_id.current_quality_check_id
+wo.qty_producing
+wo.current_quality_check_id
+wo.current_quality_check_id.qty_done
+self
+wo.current_quality_check_id
+workorders
+wo.quality_point_ids
+wo.operation_id
+wo.operation_id.name
+wo.operation_id.quality_point_ids
+wo.qty_producucing
+wo.qty_producing
+wo.qty_production
+wo.current_quality_check_id.qty_done
+wo.check_ids[0].qty_done
+wo.current_quality_check_id
+wo.check_ids
+wo.current_quality_check_id.qty_done
+wo.move_id
+wo.move_id.quantity_done
+self.qty_done
+new_check.move_line_id
+self.qty_done
+wo.current_quality_check_id.component_remaining_qty
+wo.qty_producing
+self.qty_done
+wo.current_quality_check_id.qty_done
+self.qty_done
+self.check_ids
+self.check_ids.mapped('quality_state')
+self.chech_ids.filter(lambda c: c.quality_state == 'fail')
+self.check_ids.filter(lambda c: c.quality_state == 'fail')
+self.check_ids.filtered(lambda c: c.quality_state == 'fail')
+self.check_ids.filtered(lambda c: c.quality_state == 'fail').test_type
+self.check.ids.mapped('quality_state')
+self.check_ids.mapped('quality_state')
+self.check_ids.filtered(lambda c: c.quality_state == 'none').test_type
+self.test_type
+self._is_pass_fail_applicable()
+request
+request.session
+record
+records
+tree
+model.pool.field_inverses[key]
+tree
+self.pool.field_triggers
+fnames
+self._field
+self._fields
+self
+new_records
+model
+key
+tree
+self.user_data_dir
+self.submarine_pod
+self.product_id.mapped('name')
+self.product_id.name
+name
+self.name
+guess_mimetype(out)
+guess_mimetype(self.picture)
+guess_mimetype(self.picture.decode())
+guess_mimetype(self.picture.encore())
+guess_mimetype(self.picture.encode())
+self.picture
+guess_mimetype(base64.base64decode(self.picture))
+guess_mimetype(base64.b64decode(self.picture))
+self.env.context
+date_stop - date_start
+(date_stop - date_start).total_seconds()
+(date_stop - date_start).total_seconds()/60.0
+self.operation_id
+self
+self.production_id
+lines
+product_lines
+employee_cost
+empl_cost_by_product
+product_lines
+registry.populated_models
+model._name
+model._populate
+model._populate(size)
+Q
+self.env.context
+domain
+self.env.context
+view
+views
+result
+wo.production_id
+wo.production_id.product_id
+self.bom_3.product_id,tracking
+self.bom_3.product_id.tracking
+self.bom_3.bom_line_ids.product_id.mapped('tracking')
+check_to_consider
+checks_to_consider
+checks_to_consider.mapped('finished_product_sequence')
+other_wos.state
+wo.is_last_unfinished_wo
+self.time_ids
+self.time_ids.mapped('date_start')
+self.time_ids
+self.time_ids.mapped(date_end)
+self.time_ids.mapped('date_end')
+activities
+activities.title
+activities.note
+action['views']
+point.worksheet_document
+point.worksheet_document.decode()
+self.worksheet_document
+self.env['ir.attachment'].search([
+self.env['ir.attachment'].search([('res_model', '=', 'quality.point'), ('res_id','=',self.id), ('field_name', '=', 'worksheet_document')])
+self.env['ir.attachment'].search([('res_model', '=', 'quality.point'), ('res_id','=',self.id), ('field', '=', 'worksheet_document')])
+self.env['ir.attachment'].search([('res_model', '=', 'quality.point'), ('res_id','=',self.id), ('res_field', '=', 'worksheet_document')])
+self.env['ir.attachment'].search([('res_model', '=', 'quality.point'), ('res_id','=',self.id), ('res_field', '=', 'worksheet_document')]).value
+self.env['ir.attachment'].search([('res_model', '=', 'quality.point'), ('res_id','=',self.id), ('res_field', '=', 'worksheet_document')]).datas
+self.env['ir.attachment'].search([('res_model', '=', 'quality.point'), ('res_id','=',self.id), ('res_field', '=', 'worksheet_document')]).raw
+self.env['ir.attachment'].search([('res_model', '=', 'quality.point'), ('res_id','=',self.id), ('res_field', '=', 'worksheet_document')]).mimetype
+attachment.db_datas
+attachment.raw
+attachment.datas
+attachment.store_fname
+action[0]
+action
+self.workorder_id
+self.workorder_id.production_id
+self.workorder_id.production_id.picking_type_id
+self
+self.move_ids
+self.move_ids.mapped('state')
+self.move_ids
+self.move_ids[-1].state
+def_name
+request.session
+request.session.get('employee_id')
+action.get('context')
+literal_eval(action['context'])
+action['context']
+node.value
+node.__str__
+node.__str__()
+action['context']
+literal_eval("{}")
+literal_eval("{'search_default_workcenter': 1}")
+literal_eval("{'search_default_workcenter': active_id}")
+production.bom_id
+production.bom_id.operation_ids
+production.bom_id.operation_ids[0]
+production.bom_id.operation_ids[0].worksheet
+production.bom_id.operation_ids[0].point+ids
+production.bom_id.operation_ids[0].point_ids
+production.bom_id.operation_ids[0].quality_point_ids
+production.bom_id.operation_ids[0].quality_point_ids[0]
+production.bom_id.operation_ids[0].quality_point_ids[0].worksheet
+production.bom_id.operation_ids[0].quality_point_ids[0].worksheet_document
+picking_always.state
+picking_always.backorder
+picking_always.backorder_ids
+picking_always.state
+self.workorder_id.current_quality_check_id
+bom.active
+query
+query.text
+query.get_sql
+query.get_sql()
+self.env.context
+self.context
+self.env.context
+env.context
+record.enc.context
+record.env.context
+self
+self.env.context
+lines
+lines.move_id.move_line_ids
+move.sale_line_id
+move.sale_line_id.order_id
+move.sale_line_id
+move.sale_line_id.order_id
+move.picking_id.location_dest_id.usage == "customer"
+move.sale_line_id
+self.env["sale.order.line"].search([("id", "=", move.sale_line_id.id)])
+self.env["sale.order.line"].search([("id", "=", 50)])
+self.env["sale.order.line"].sudo().search([("id", "=", 50)])
+default['move_finished_ids']
+self.move_finished_ids
+values.keys()
+values['move_finished_ids']
+product.product_template_attribute_value_ids
+product
+product.name
+self.bom_product_template_attribute_value_ids
+self.bom_product_template_attribute_value_ids.name
+product.product_template_attribute_value_ids & self.bom_product_template_attribute_value_ids
+len(self)
+self.limit
+comodel
+domain
+len(lines)
+inverse_field
+inverse_field.type
+val
+result
+orderby_terms
+query
+bom.product_id
+out_domain
+len(out)
+len(outs)
+max(outs.mapped('date'))
+tail_pos
+q
+stick
+tail_pos[i]
+i
+vals_list
+len(vals_list
+len(vals_list)
+len(value)
+self.move_finished_ids
+len(list_move_finished
+len(list_move_finished)
+len(vals_list)
+vals_list.id
+id(vals_list)
+production.state
+tocompute
+self
+self.move_finished_ids
+self.env['stock.move'].search([], limit=1, order="id desc")
+self.env['stock.move'].search([], limit=1, order="id desc").production_id
+self.env['stock.move'].search([], limit=1, order="id desc").location_id
+self.env['stock.move'].search([], limit=1, order="id desc").location_dest_id
+self.env['stock.move'].search([], limit=1, order="id desc").location_dest_id.is_scrapped
+self.env['stock.move'].search([], limit=1, order="id desc").location_dest_id.is_scrapp
+self.env['stock.move'].search([], limit=1, order="id desc").location_dest_id.scrapped
+self.env['stock.move'].search([], limit=1, order="id desc").location_dest_id.scrapp
+self.env['stock.move'].search([], limit=1, order="id desc").location_dest_id.scrap_location
+self.quantity_svl
+self.value_svl
+ResCurrencyRate.search([])
+ResCurrencyRate.search([('currency_id': company.currency_id.id)])
+ResCurrencyRate.search([('currency_id'i, '=', company.currency_id.id)])
+ResCurrencyRate.search([('currency_id', '=', company.currency_id.id)])
+ResCurrencyRate.search([('currency_id', '=', company_currency_id.id)])
+ResCurrencyRate.search([('currency_id', '=', company_currency.id)])
+ResCurrencyRate.search([('currency_id', '=', company_currency.id)]).mapped('name')
+mo.picking_ids[1].move_ids
+mo.picking_ids[1].move_ids.mapped('product_uom_qty')
+mo.picking_ids[0].move_ids.mapped('product_uom_qty')
+mo.picking_ids.move_ids
+mo.picking_ids[1].move_ids
+mo.picking_ids[1].move_ids[0].product_uom_aty
+mo.picking_ids[1].move_ids[0].product_uom_qty
+mo.picking_ids[1].move_ids.mapped('date_deadline')
+move_update.date_deadline
+delta
+new_deadline
+self.move_raw_ids
+move.move_orig_ids
+move.move_dest_ids
+move.move_dest_ids.mapped('name')
+move.move_dest_ids.mapped('state')
+move.move_dest_ids.raw_material_production_id.mapped('state')
+self.move_raw_ids
+production.move_raw_ids
+self.move_dest_ids
+production.move_raw_ids
+production.move_raw_ids.move_orig_ids
+self.move_raw_ids.move_orig_ids
+self.move_raw_ids.move_orig_ids.mapped('state')
+product
+product.display_name
+bom.product_tmpl_id
+bom.product_tmpl_id.display_name
+self.product1.categ_id.property_stock_account_input_categ_id
+self.stock_input_account
+self.product1.categ_id.property_stock_account_input_categ_id
+self.env.company.property_stock_account_input_categ_id
+self.env.company.property_stock_valuation_account_id
+company.name
+self.env.company.name
+self.env.company.country_id.name
+self.product1.company_id
+self.product_1.categ_id
+self.product1.categ_id
+self.product1.categ_id.property_stock_account_
+self.product1.categ_id.property_stock_account_input_categ_id
+self.env.company
+self.env.company.property_stock_account_input_categ_id
+input_amls = self.env['account.move.line'].search([('account_id', '=', self.stock_input_account.id)])
+self.env['account.move.line'].search([('account_id', '=', self.stock_input_account.id)])
+self.env['account.move.line'].search([('account_id', '=', self.stock_input_account.id)]).mapped('name')
+self.env['account.move.line'].search([('account_id', '=', self.stock_input_account.id)]).mapped('debit')
+self.env['account.move.line'].search([('account_id', '=', self.stock_input_account.id)]).mapped('product_id')
+self.stock_account_product_categ.property_account_creditor_price_difference_categ
+price_diff_line.price_unit
+price_diff_line.tax_ids
+invoice.line_ids.tax_ids
+invoice.line_ids.
+invoice.line_ids
+price_diff_line.price_subtotal
+employee_ids.mapped('barcode')
+employee_ids.sudo().filtered(lambda e: e.barcode == barcode)
+employee_ids.sudo().filtered(lambda e: e.barcode == barcode)[:-1]
+employee_ids.sudo().filtered(lambda e: e.barcode == barcode)[:1]
+[][:1]
+so_line.fsm_lot_id
+moves._rollup_move_origs()
+moves._rollup_move_origs(set())
+moves._rollup_move_origs(self.ids)
+self.product_qty
+NOTHING
+line.price_unit
+order.order_line.price_unit
+seller.min_qty
+line.product_uom_qty
+line._origin.product_qty
+line.product_ty
+line.product_qty
+line.product_uom_qty
+line.price_unit
+line._origin.product_qty
+total_void
+self.product_qty
+candidate_moves_list[0]
+candidate_moves_list[0].mapped('product_qty')
+moves_to_merge
+moves_to_
+moves_to_unlink
+moves.picking_id
+move.location_id.name + ' ' + move.location_dest_id.name
+move.location_id.name + ' -> ' + move.location_dest_id.name
+self.finishedf
+self.finished
+f_layers
+f_layers.stock_move_id
+f_layers.stock_move_id.mapped('state')
+f_layers.stock_move_id.mapped('quantity_done')
+f_layers.mapped('value')
+f_layers.mapped('quantity')
+f_layers.mapped('price_unit')
+f_layers.mapped('unit_cost')
+f_layers[0].stock_move_id.location_id.name
+f_layers[0].stock_move_id.location_dest_id.name
+f_layers
+f_layers[0].stock_move_id
+f_layers[0].stock_move_id._is_in()
+f_layers[0].stock_move_id.move_line_ids
+f_layers[0].stock_move_id.move_line_ids.location_id
+f_layers[0].stock_move_id.move_line_ids.location_id.name
+move
+move.origin
+move.raw_material_production_id.origin
+move.raw_material_production_id
+move.raw_material_production_id.move_finished_ids
+move.raw_material_production_id.move_finished_ids.origin
+replenishments
+len(replenishments)
+source
+sources_to_lines
+source[0]
+source[0].name
+outs
+outs.picking_id.mapped('name')
+outs
+[o.picking_id.name for o in outs]
+source
+qty_done
+self.is_subcontract
+move.location_id.name
+move.location_dest
+move.location_dest_id.name
+move.is_subcontract
+group  = self.env.user.has_group('mrp.group_mrp_routings')
+group
+self.group_mrp_routings
