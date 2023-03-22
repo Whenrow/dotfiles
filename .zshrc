@@ -43,6 +43,7 @@ fi
 
 # Path
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/lua-lsp/bin:$PATH"
 export PYTHONPATH="$HOME/src/odoo:$PYTHONPATH"
 
 # Forgit options
