@@ -24,6 +24,8 @@ vim.keymap.set("n", "<leader>cz", function() vim.cmd.edit("~/.zshrc") end)
 vim.cmd.iabbrev("pudb", "import pudb;pudb.set_trace()")
 -- Set current file's directory the working one
 vim.keymap.set("n", "<leader>sd", function() vim.cmd.cd("%:p:h") end)
+-- Copy current file path to clipboard
+vim.keymap.set("n", "<leader>cp", function() vim.cmd.let("@+ = expand('%:p')") end)
 
 
 

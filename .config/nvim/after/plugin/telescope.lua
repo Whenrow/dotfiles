@@ -24,3 +24,8 @@ end)
 vim.keymap.set("n", "<leader>l", function()
     builtin.live_grep({grep_open_files = true})
 end)
+-- Remap spell suggestion to the Telescope one
+vim.keymap.set("n", "z=", function()
+    builtin.spell_suggest()
+end)
+vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})

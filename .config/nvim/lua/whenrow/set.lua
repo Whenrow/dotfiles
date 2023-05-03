@@ -8,6 +8,9 @@ vim.opt.softtabstop=4
 vim.opt.spell = true
 vim.opt.swapfile = false
 vim.opt.tags = ".tags"
+vim.opt.termguicolors = true
+vim.cmd([[highlight ColorColumn ctermbg=0 guibg=#313244]])
+vim.opt.cc = "100"
 --""==================
 --"" Tree view
 --""==================

@@ -63,19 +63,18 @@ telescope.setup {
           -- previewer = false,
       },
       live_grep = {
-          glob_pattern = {'!*.po', '!*.pot', '!tags', '!sysadmin_dns_training'},
+          glob_pattern = {'!*.po', '!*.pot', '!tags', '!sysadmin_dns_training', '!*.json'},
           layout_strategy = 'vertical',
           layout_config = {height = 0.9, mirror = true, prompt_position = 'top'},
       },
       grep_string = {
-          additional_args = {'-g', '!*.po', '-g', '!tags'},
+          additional_args = {'-g', '!*.po', '-g', '!tags', '-g', '!*.json'},
           layout_strategy = 'vertical',
           layout_config = {height = 0.9, mirror = true, prompt_position = 'top'},
       },
       buffers = {
           layout_strategy = 'vertical',
           layout_config = {height = 0.9, mirror = true, prompt_position = 'top'},
-          sort_lastused = true,
           sort_mru = true,
       },
       tags = {
@@ -83,8 +82,11 @@ telescope.setup {
           layout_config = {height = 0.9, mirror = true, prompt_position = 'bottom'},
           fname_width = 100,
       },
+      git_commits = {
+          use_file_path = true,
+      },
       git_bcommits = {
-          use_git_root = false,
+          use_file_path = true,
       },
   }
 }

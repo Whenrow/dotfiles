@@ -1,3 +1,4 @@
+require('whenrow.gitsigns')
 require('whenrow.lualine')
 require('whenrow.packer')
 require('whenrow.remap')
