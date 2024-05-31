@@ -1,0 +1,13 @@
+-- require("copilot").setup({
+--     suggestion = {
+--         auto_trigger = true,
+--         keymap = {
+--             accept = "<C-y>",
+--             accept_word = false,
+--             accept_line = false,
+--         },
+--     },
+--     fyletypes = {
+--         gitcommit = true,
+--     },
+-- })

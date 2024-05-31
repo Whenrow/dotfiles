@@ -1,9 +1,9 @@
 --open Tig blame
 vim.keymap.set("n", "<leader>b", function() vim.cmd.Git("blame") end)
 --open git log
-vim.keymap.set("n", "<leader>gl", function() vim.cmd.Glog("-n 25") end)
+vim.keymap.set("n", "<leader>gl", function() vim.cmd.Gclog("-n 25 %") end)
 --close buffer
-vim.keymap.set("n", "<leader><leader>", ":Ge:<CR>")
+vim.keymap.set("n", "<leader><leader>", ":Gtabe:<CR>")
 
 local whenrow_Fugitive = vim.api.nvim_create_augroup("whenrow_Fugitive", {})
 

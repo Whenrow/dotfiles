@@ -1,9 +1,7 @@
-require('whenrow.gitsigns')
-require('whenrow.lualine')
-require('whenrow.packer')
-require('whenrow.remap')
 require('whenrow.set')
-require('whenrow.telescope')
+require('whenrow.remap')
+require('whenrow.lazy')
+require('whenrow.lualine')
 
 local autocmd = vim.api.nvim_create_autocmd
 autocmd({"BufWritePre"}, {
