@@ -12,7 +12,7 @@ vim.keymap.set("n", "[c", ":cprevious<CR>zz", {silent = true})
 vim.keymap.set("n", "]t", ":tabNext<CR>", {silent = true})
 vim.keymap.set("n", "[t", ":tabprevious<CR>", {silent = true})
 -- split line at cursor
-vim.keymap.set("n", "K", "i<CR><esc>")
+-- vim.keymap.set("n", "K", "i<CR><esc>")
 -- Center next highlighted word
 vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")

@@ -1,4 +1,4 @@
-require'nvim-treesitter.configs'.setup{
+require'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all"
     ensure_installed = { "python", "javascript", "lua", "css"},
 
@@ -8,6 +8,7 @@ require'nvim-treesitter.configs'.setup{
     -- Automatically install missing parsers when entering buffer
     -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
     auto_install = true,
+    ignore_install = {},
 
     highlight = {
         -- `false` will disable the whole extension
@@ -18,6 +19,14 @@ require'nvim-treesitter.configs'.setup{
         -- Using this option may slow down your editor, and you may see some duplicate highlights.
         -- Instead of true it can also be a list of languages
         additional_vim_regex_highlighting = false,
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "<BS>",
+            node_incremental = "<BS>",
+            node_decremental = "<M-BS>",
+        },
     },
     textobjects = {
         select = {
@@ -76,3 +85,21 @@ require'treesitter-context'.setup{
 }
 vim.cmd([[highlight TreesitterContext gui=Bold guisp=Normal]])
 
+local ts_utils = require 'nvim-treesitter.ts_utils'
+local get_current_function_name = function()
+    local current_node = ts_utils.get_node_at_cursor()
+    if not current_node then return "" end
+    local expr = current_node
+    while expr do
+        if expr:type() == 'function_definition' then
+            break
+        end
+        expr = expr:parent()
+    end
+    if not expr then return "" end
+    return((ts_utils.get_node_text(expr:child(1)))[1])
+end
+local print_current_function_name = function()
+    print(get_current_function_name())
+end
+vim.keymap.set("n", "<leader>o", print_current_function_name)

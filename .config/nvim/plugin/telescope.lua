@@ -116,6 +116,8 @@ end)
 vim.keymap.set("n", "<leader>l", function()
     builtin.live_grep({grep_open_files = true})
 end)
+-- Command history
+vim.keymap.set("n", "<C-r>", builtin.command_history)
 -- Remap spell suggestion to the Telescope one
 vim.keymap.set("n", "z=", function()
     builtin.spell_suggest()
@@ -134,15 +136,17 @@ local function telescope_tjump(query, exact)
         print("No tags found for query: " .. query)
         return
     elseif #tags == 1 then
-        vim.cmd.tjump(tags[1])
+        vim.cmd.tjump(tags[1].name)
+        return
     end
 
     -- Format tags into the expected format for Telescope
     local entries = {}
     for _, tag in ipairs(tags) do
         table.insert(entries, {
-            display = tag.filename .. ": " .. tag.name,
+            display = tag.filename .. ": " .. (tag.class or "") .. ": " .. tag.name,
             tag = tag.name,
+            class = tag.class,
             filename = tag.filename,
             scode = tag.cmd:gsub("^/", ""):gsub("/$", "") -- remove start and end slashes
         })
@@ -155,28 +159,34 @@ local function telescope_tjump(query, exact)
             results = entries,
             entry_maker = function(entry)
                 local display_items = {
+                    {width = 80},
                     {remaining = true},
                 }
                 local displayer = entry_display.create {
                     separator = " │ ",
                     items = display_items,
                 }
+                local make_display = function(lentry)
+                    return displayer {
+                        lentry.filename,
+                        lentry.class,
+                    }
+                end
                 return {
                     ordinal = entry.display,
-                    display = displayer {
-                        entry.filename,
-                        entry.tag,
-                        entry.scode,
-                    },
+                    display = make_display,
                     scode = entry.scode,
                     tag = entry.tag,
                     filename = entry.filename,
+                    class = entry.class,
                     col = 1,
                     lnum = 1,
                 }
             end,
         },
         sorter = sorters.get_fuzzy_file(),
+        layout_strategy = 'vertical',
+        layout_config = {height = 0.9, mirror = true, prompt_position = 'bottom'},
         previewer = previewers.ctags.new({}),
         attach_mappings = function()
             action_set.select:enhance {
