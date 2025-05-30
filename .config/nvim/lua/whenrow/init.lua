@@ -5,6 +5,7 @@ require('whenrow.lualine')
 require('whenrow.odoo')
 
 local autocmd = vim.api.nvim_create_autocmd
+-- Remove trailing whitespace on save
 autocmd({"BufWritePre"}, {
     pattern = "*",
     command = [[%s/\s\+$//e]],
@@ -16,8 +17,6 @@ autocmd({"BufWritePre"}, {
 if vim.fn['expand']('%:p:h:h') == '/home/whe/src' then
     vim.cmd.cd("..")
 end
-
-vim.cmd([[au BufNewFile,BufRead *.v set filetype=vlang]])
 
 RELOAD = function(module)
   return require("plenary.reload").reload_module(module)

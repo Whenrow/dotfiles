@@ -36,10 +36,8 @@ require('gitsigns').setup {
     row = 0,
     col = 1
   },
-  yadm = {
-    enable = false
-  },
 }
 vim.keymap.set("n", "<leader>dd", function() vim.cmd.Gitsigns("preview_hunk") end)
+vim.keymap.set({"n", "v"}, "<leader>gu", function() vim.cmd.Gitsigns("reset_hunk") end)
 vim.keymap.set("n", "]h", function() vim.cmd.Gitsigns("next_hunk") end)
 vim.keymap.set("n", "[h", function() vim.cmd.Gitsigns("prev_hunk") end)

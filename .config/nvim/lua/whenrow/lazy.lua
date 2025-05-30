@@ -3,11 +3,11 @@ require("lazy").setup({
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
     { 'nvim-treesitter/nvim-treesitter-context' },
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
+    { 'nvim-treesitter/nvim-treesitter-refactor' },
     { 'emmanueltouzery/decisive.nvim' },
     {
         'nvim-telescope/telescope.nvim',
         event = 'VimEnter',
-        target = '0.1.6',
         dependencies = {
             'nvim-lua/plenary.nvim',
             {
@@ -24,16 +24,16 @@ require("lazy").setup({
                 end,
             },
             { 'nvim-telescope/telescope-ui-select.nvim' },
-
-            -- Useful for getting pretty icons, but requires a Nerd Font.
-            { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
         },
     },
     'mbbill/undotree',
     'onsails/lspkind.nvim',
     'nvim-lualine/lualine.nvim',
-    {'catppuccin/nvim', name = 'catppuccin'},
-    { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup({'css', 'html', '!TelescopeResults'}) end },
+    {'sainnhe/everforest',
+        priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
+        opts = { }
+    },
+    {'brenoprata10/nvim-highlight-colors'},
     { 'stevearc/oil.nvim'},
 
     -- lsp stuff
@@ -59,34 +59,46 @@ require("lazy").setup({
             { 'rafamadriz/friendly-snippets' },
         }
     },
-    { dir = '/home/whe/src/ols/nvim'},
-    'ollykel/v-vim',
-    {'Exafunction/codeium.vim',
-        enabled = true,
-        version = "1.8.37",
-        config = function ()
-            -- Change '<C-g>' here to any keycode you like.
-            vim.g.codeium_format = {'python', 'javascript'}
-            vim.keymap.set('i', '<C-y>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
-            vim.keymap.set('i', '<C-l>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true, silent = true })
-            vim.keymap.set('i', '<C-h>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true, silent = true })
-            vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
-            vim.keymap.set('n', 'Leader<c-c>', function() return vim.fn['codeium#Chat']() end, { expr = true, silent = true })
+    {"zbirenbaum/copilot.lua"},
+    {"supermaven-inc/supermaven-nvim"},
+    {
+        "odoo/odoo-ls",
+        dir = "~/src/ols_wip",
+        config = function(plugin)
+            vim.opt.rtp:append(plugin.dir .. "/nvim")
+            require("lazy.core.loader").packadd(plugin.dir .. "/nvim")
+        end,
+        init = function(plugin)
+            require("lazy.core.loader").ftdetect(plugin.dir .. "/nvim")
         end,
     },
 
-	-- Git
-	'tpope/vim-fugitive',
-	'tpope/vim-rhubarb',
+    -- {'whenrow/odoo-ls.nvim', dev = true, dir="~/Programming/odoo-ls.nvim"},
+    -- {'whenrow/odoo-ls.nvim'},
 
-	-- Misc
-	'tpope/vim-surround',
-	{ 'JellyApple102/flote.nvim', config = function() require('flote').setup() end },
+    -- Git
+    'tpope/vim-fugitive',
+    'tpope/vim-rhubarb',
 
-	-- Debugging
-        { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"}},
+    -- Misc
+    'tpope/vim-surround',
+    { 'JellyApple102/flote.nvim', config = function() require('flote').setup() end },
+    { 'rmagatti/auto-session'},
 
-	-- Bullshit
-	'eandrju/cellular-automaton.nvim',
-	'lewis6991/gitsigns.nvim',
-    })
+    -- Debugging
+    { "rcarriga/nvim-dap-ui", dependencies = { {
+        "mfussenegger/nvim-dap",
+        "nvim-neotest/nvim-nio",
+        "rcarriga/cmp-dap",
+        "jbyuki/one-small-step-for-vimkind",
+    } } },
+    {
+        "kristijanhusak/vim-dadbod-completion", dependencies = {
+            "tpope/vim-dadbod",
+            "kristijanhusak/vim-dadbod-ui",
+        },
+    },
+    -- Bullshit
+    'eandrju/cellular-automaton.nvim',
+    'lewis6991/gitsigns.nvim',
+})

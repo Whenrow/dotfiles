@@ -1,6 +1,6 @@
 require('lualine').setup {
     options = {
-        theme = "catppuccin",
+        theme = vim.g.color_name,
         icons_enabled = true,
         section_separators = { left = '▒', right = '▒' },
         component_separators = { left = '', right = '' }

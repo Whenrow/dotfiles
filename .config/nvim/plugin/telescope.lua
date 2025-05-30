@@ -37,7 +37,17 @@ telescope.setup {
           n = {
               ["<Esc>"] = actions.close,
           }
-      }
+      },
+      vimgrep_arguments = {
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "--multiline",
+        },
   },
   pickers = {
       find_files = {
@@ -50,7 +60,7 @@ telescope.setup {
           layout_config = {height = 0.9, mirror = true, prompt_position = 'top'},
       },
       grep_string = {
-          additional_args = {'-g', '!*.po', '-g', '!tags', '-g', '!*.json'},
+        additional_args = {'-g', '!*.po', '-g', '!tags', '-g', '!*.json', '-g', '!odools'},
           layout_strategy = 'vertical',
           layout_config = {height = 0.9, mirror = true, prompt_position = 'top'},
       },
@@ -62,7 +72,8 @@ telescope.setup {
       tags = {
           layout_strategy = 'vertical',
           layout_config = {height = 0.9, mirror = true, prompt_position = 'bottom'},
-          fname_width = 100,
+          show_kind = false,
+          fname_width = 70,
       },
       git_commits = {
           use_file_path = true,
@@ -76,9 +87,15 @@ telescope.setup {
       git_branches = {
           use_file_path = true,
       },
+      git_bcommits_range = {
+          use_file_path = true,
+      },
       lsp_document_symbols = {
           ignore_symbols = {'File', 'Module', 'Namespace', 'Variable', 'Package'},
           show_line = true,
+      },
+      planets = {
+          previewer = require('telescope.config').values.cat_previewer
       },
   }
 }
@@ -97,16 +114,21 @@ vim.keymap.set("n", "<leader>r", function()
 end)
 vim.keymap.set("n", "<leader>T", vim.cmd.Telescope)
 vim.keymap.set("n", "<leader><BS>", builtin.resume)
-vim.keymap.set("n", "<leader>gf", builtin.grep_string)
+vim.keymap.set({"n", "v"}, "<leader>gf", function()
+    builtin.grep_string({use_regex=false})
+end)
 vim.keymap.set("n", "<leader>/", function()
-    builtin.grep_string({search = vim.fn.input("Grep : "), use_regex=true})
+    builtin.grep_string({search = vim.fn.input("Grep : "), use_regex=false})
+end)
+vim.keymap.set("n", "<leader>?", function()
+    builtin.grep_string({search = vim.fn.input("eGrep : "), use_regex=true})
 end)
 -- open .config/ folder in Telescope
 vim.keymap.set("n", "<leader>cc", function()
     builtin.find_files({search_dirs={'~/.config/'},hidden=true})
 end)
 vim.keymap.set("n", "<leader>cl", function()
-    builtin.find_files({search_dirs={'~/.local/bin/'},hidden=true})
+    builtin.find_files({search_dirs={'~/.local/'},hidden=true})
 end)
 -- Edit nvim config
 vim.keymap.set("n", "<leader>ce", function()
@@ -117,12 +139,13 @@ vim.keymap.set("n", "<leader>l", function()
     builtin.live_grep({grep_open_files = true})
 end)
 -- Command history
-vim.keymap.set("n", "<C-r>", builtin.command_history)
+vim.keymap.set("n", "<leader>R", builtin.command_history)
 -- Remap spell suggestion to the Telescope one
 vim.keymap.set("n", "z=", function()
     builtin.spell_suggest()
 end)
 vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
+-- LSP overrides
 
 -- Jump to tag or list in telescope if multiple possibilities
 local function telescope_tjump(query, exact)
@@ -159,7 +182,7 @@ local function telescope_tjump(query, exact)
             results = entries,
             entry_maker = function(entry)
                 local display_items = {
-                    {width = 80},
+                    {width = 70},
                     {remaining = true},
                 }
                 local displayer = entry_display.create {

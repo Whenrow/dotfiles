@@ -1,17 +1,20 @@
 #!/bin/sh
-#product_uom_id
 
-B='#00000000'  # blank
+B='00000000'  # blank
 C='#ffffff22'  # clear ish
-D='#ff00ffcc'  # default
-T='#ee00eeee'  # text
-W='#880000bb'  # wrong
-V='#bb00bbbb'  # verifying
+D='#8C6751'  # default
+T='#9CA686'  # text
+W='#E0CBB1'  # wrong
+V='#D9AB82'  # verifying
+
+file=$(find $HOME/Pictures/lockscreen -type f | shuf -n 1)
 
 $HOME/.local/bin/i3lock \
 --insidever-color=$C   \
 --ringver-color=$V     \
 \
+--scale               \
+--radius 150         \
 --insidewrong-color=$C \
 --ringwrong-color=$W   \
 \
@@ -28,10 +31,7 @@ $HOME/.local/bin/i3lock \
 --keyhl-color=$W       \
 --bshl-color=$W        \
 \
---screen 1            \
---blur 5              \
+--image $file          \
 --clock               \
---indicator           \
 --time-str="%H:%M:%S"  \
 --date-str="%A, %m %Y" \
---keylayout 1         \

@@ -7,29 +7,19 @@
 	editor = nvim
 [interactive]
         diffFilter = delta --color-only
-
+[include]
+        path = /home/whe/.config/git/themes.gitconfig
 [delta]
         navigate = true
         light = false
+        features = catppuccin-mocha
 [diff]
         colorMoved = default
-
 [color]
 	ui = true
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
-[color "diff"]
-	meta = 11
-	frag = magenta bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
 [push]
 	default = current
+	autoSetupRemote = true
 [alias]
         co = checkout
 	push = push -u
@@ -38,3 +28,10 @@
 	defaultRemote = origin
 [pager]
         diff = delta
+[maintenance]
+	repo = /home/whe/src/odoo
+	repo = /home/whe/src/enterprise
+[rerere]
+	enable = true
+[merge]
+	conflictstyle = diff3

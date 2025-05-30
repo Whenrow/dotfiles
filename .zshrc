@@ -19,14 +19,12 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(fzf fd colored-man-pages zsh-autosuggestions forgit postgres extract vi-mode)
+plugins=(fzf colored-man-pages zsh-autosuggestions forgit postgres extract vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
-source ~/.zsh_alias
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_BASE=~/.config/nvim/plugged/fzf
+source $HOME/.completions.zsh
+source $HOME/.key-bindings.zsh
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
@@ -44,16 +42,19 @@ fi
 # Path
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/lua-lsp/bin:$PATH"
-export PYTHONPATH="$HOME/src/odoo:$PYTHONPATH"
+export PATH="$PATH:$HOME/.erg/bin"
+export ERG_PATH="$HOME/.erg"
 
 # Forgit options
 export FORGIT_COPY_CMD='xclip -selection clipboard'
 export FORGIT_LOG_GRAPH_ENABLE='false'
+export forgit_rebase=grbs
 
-# Misc options
+# miSc options
 export SUDO_ASKPASS=/usr/bin/ssh-askpass
 export VI_MODE_SET_CURSOR=true
 export ODOO_RC="$HOME/.config/odoorc"
+# export COMMUNITY_PATH="$HOME/src/odoo"
 
 # nnn config
 export NNN_PLUG='f:finder;o:fzopen;p:mocplay;d:diffs;t:nmount;v:imgview'
@@ -65,3 +66,8 @@ function fkill () {
         echo $pid | xargs kill -9
     fi
 }
+source ~/.zsh_alias
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -11,8 +11,6 @@ vim.keymap.set("n", "[c", ":cprevious<CR>zz", {silent = true})
 -- Tab navigation
 vim.keymap.set("n", "]t", ":tabNext<CR>", {silent = true})
 vim.keymap.set("n", "[t", ":tabprevious<CR>", {silent = true})
--- split line at cursor
--- vim.keymap.set("n", "K", "i<CR><esc>")
 -- Center next highlighted word
 vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
@@ -34,3 +32,8 @@ vim.keymap.set("n", "<leader>s", function ()
 end)
 -- source current file
 vim.keymap.set("n", "<F5>", vim.cmd.source)
+vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv")
+-- Actions to system clipboard
+vim.keymap.set({"n","v"}, "<leader>y", [["+y]])
+vim.keymap.set({"n","v"}, "<leader>d", [["+d]])

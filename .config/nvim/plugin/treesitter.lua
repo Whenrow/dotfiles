@@ -1,4 +1,6 @@
 require'nvim-treesitter.configs'.setup {
+    modules = {},
+    update_strategy = "",
     -- A list of parser names, or "all"
     ensure_installed = { "python", "javascript", "lua", "css"},
 
@@ -10,6 +12,15 @@ require'nvim-treesitter.configs'.setup {
     auto_install = true,
     ignore_install = {},
 
+    refactor = {
+        smart_rename = {
+            enable = true,
+            -- Assign keymaps to false to disable them, e.g. `smart_rename = false`.
+            keymaps = {
+                smart_rename = "grr",
+            },
+        },
+    },
     highlight = {
         -- `false` will disable the whole extension
         enable = true,
@@ -19,6 +30,9 @@ require'nvim-treesitter.configs'.setup {
         -- Using this option may slow down your editor, and you may see some duplicate highlights.
         -- Instead of true it can also be a list of languages
         additional_vim_regex_highlighting = false,
+    },
+    indent = {
+        enable = true
     },
     incremental_selection = {
         enable = true,
@@ -80,26 +94,7 @@ require'treesitter-context'.setup{
   mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
   -- Separator between context and content. Should be a single character string, like '-'.
   -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-  separator = '¯',
+  separator = '',
   zindex = 20, -- The Z-index of the context window
 }
-vim.cmd([[highlight TreesitterContext gui=Bold guisp=Normal]])
-
-local ts_utils = require 'nvim-treesitter.ts_utils'
-local get_current_function_name = function()
-    local current_node = ts_utils.get_node_at_cursor()
-    if not current_node then return "" end
-    local expr = current_node
-    while expr do
-        if expr:type() == 'function_definition' then
-            break
-        end
-        expr = expr:parent()
-    end
-    if not expr then return "" end
-    return((ts_utils.get_node_text(expr:child(1)))[1])
-end
-local print_current_function_name = function()
-    print(get_current_function_name())
-end
-vim.keymap.set("n", "<leader>o", print_current_function_name)
+vim.cmd([[highlight TreesitterContext gui=bold guisp=Normal]])

@@ -27,12 +27,10 @@ local battery_widget = require("widget.battery-widget.battery")
 local logout_popup = require("widget.logout-popup-widget.logout-popup")
 local volume_widget = require('widget.volume-widget.volume')
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
-local wifi_widget = require("wifi-widget.volume")
+local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
 
 -- Share Tags (multi screen management)
 local sharedtags = require("sharedtags")
-
-dpi = beautiful.xresources.apply_dpi
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -67,7 +65,7 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 beautiful.get().wallpaper = gears.filesystem.get_configuration_dir() .. "../wallpapers/cozy_autumn.jpg"
 
 -- This is used later as the default terminal and editor to run.
-terminal = "tilix"
+terminal = "ghostty"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -114,7 +112,7 @@ local tags = sharedtags({
 
 -- {{{ Menu
 -- Create a launcher widget and a main menu
-myawesomemenu = {
+local myawesomemenu = {
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
    { "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awesome.conffile },
@@ -125,6 +123,7 @@ myawesomemenu = {
 local menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
 local menu_terminal = { "open terminal", terminal }
 
+local mymainmenu = nil
 if has_fdo then
     mymainmenu = freedesktop.menu.build({
         before = { menu_awesome },
@@ -133,10 +132,10 @@ if has_fdo then
 else
     mymainmenu = awful.menu({
         items = {
-                  menu_awesome,
-                  { "Debian", debian.menu.Debian_menu.Debian },
-                  menu_terminal,
-                }
+            menu_awesome,
+            { "Debian", debian.menu.Debian_menu.Debian },
+            menu_terminal,
+        }
     })
 end
 
@@ -146,23 +145,29 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
+local mykeyboardlayout = awful.widget.keyboardlayout()
+
+-- brightness selector
+local mybrightness = brightness_widget({
+    type = 'icon_and_text',
+    program = 'brightnessctl',
+    step = 2,
+}
+)
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock("%a %H:%M")
+local mytextclock = wibox.widget.textclock("%a %H:%M")
 
-cw = calendar_widget({
-    theme = "mocha",
+local cw = calendar_widget({
     placement = "top center",
     previous_month_button = 1,
     next_month_button = 3,
+    auto_hide = true,
+    timeout = 2,
+
 })
 mytextclock:connect_signal("mouse::enter",
-    function() cw.toggle() end
-)
-
-mytextclock:connect_signal("mouse::leave",
     function() cw.toggle() end
 )
 
@@ -264,8 +269,8 @@ awful.screen.connect_for_each_screen(function(s)
         border_color = beautiful.bg_normal,
         shape = gears.shape.rounded_rect,
         width = s.geometry.width - beautiful.useless_gap * 12,
+        -- width = s.geometry.width,
     })
-    s.mywibox.y = beautiful.useless_gap,
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -286,7 +291,7 @@ awful.screen.connect_for_each_screen(function(s)
             spacing = 10,
             mykeyboardlayout,
             volume_widget({widget_type='arc'}),
-            wifi_widget(),
+            mybrightness,
             battery_widget({
                 display_notification=true
             }),
@@ -295,19 +300,6 @@ awful.screen.connect_for_each_screen(function(s)
     }
 end)
 -- }}}
-
--- {{{ Dashboard
-myDashboard = wibox {
-    visible = false,
-    ontop= true,
-    width = dpi(100),
-    position = "left",
-    border_width = beautiful.useless_gap * 3,
-    border_color = beautiful.border_normal,
-    shape = gears.shape.rounded_rect,
-    height = awful.screen.focused().geometry.height - beautiful.useless_gap * 6,
-    x = beautiful.useless_gap * 3
-}
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
@@ -328,7 +320,7 @@ globalkeys = gears.table.join(
         end,
         {description="logout popup", group="awesome"}
     ),
-    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
+    awful.key({ modkey,           }, "h",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
@@ -337,13 +329,13 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
 
-    awful.key({ modkey,           }, "j",
+    awful.key({ modkey,           }, "a",
         function ()
             awful.client.focus.byidx( 1)
         end,
         {description = "focus next by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "k",
+    awful.key({ modkey,           }, "s",
         function ()
             awful.client.focus.byidx(-1)
         end,
@@ -430,19 +422,18 @@ globalkeys = gears.table.join(
               {description = "show the menubar", group = "launcher"}),
     -- Misc
     awful.key({ "Any" }, "#107", function() awful.spawn("flameshot gui") end,
-              {description = "show the menubar", group = "launcher"}),
+              {description = "Flameshot", group = "launcher"}),
 
     -- Keyboard special keys
-    awful.key({ "Any" }, "XF86MonBrightnessUp", function() awful.spawn("xbacklight -inc 5") end,
-              {description = "Decrease volume", group = "awesome"}),
-    awful.key({ "Any" }, "XF86MonBrightnessDown", function() awful.spawn("xbacklight -dec 5") end,
-              {description = "Decrease volume", group = "awesome"}),
+    --
+    awful.key({ "Any" }, "XF86MonBrightnessUp", function () brightness_widget:inc() end, {description = "increase brightness", group = "custom"}),
+    awful.key({ "Any" }, "XF86MonBrightnessDown", function () brightness_widget:dec() end, {description = "decrease brightness", group = "custom"}),
     awful.key({ "Any" }, "XF86AudioLowerVolume", function() volume_widget:dec() end,
               {description = "Decrease volume", group = "awesome"}),
     awful.key({ "Any" }, "XF86AudioRaiseVolume", function() volume_widget:inc() end,
               {description = "Decrease volume", group = "awesome"}),
     awful.key({ "Any" }, "XF86AudioMute", function() volume_widget:toggle() end,
-              {description = "Decrease volume", group = "awesome"})
+              {description = "Mute", group = "awesome"})
 )
 
 clientkeys = gears.table.join(
@@ -680,11 +671,13 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- Autostart App
+awful.spawn("nm-applet")
 awful.spawn.with_shell(gears.filesystem.get_configuration_dir() .. "bin/compton-toggle.sh")
 awful.spawn.easy_async({"pidof nextcloud", function(stdout, stderr, er, ec)
     if (not stdout and not stderr) then
         awful.spawn("nextcloud")
     end
 end})
-awful.spawn.with_shell("setxkbmap -layout 'us,be' -option 'grp:switch'")
+awful.spawn.with_shell("setxkbmap -layout 'us,be' -option 'grp:switch' -option 'compose:rctrl'")
+-- keyboard times between key presses
 awful.spawn.with_shell("xset r rate 300 90")

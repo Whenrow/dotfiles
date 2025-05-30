@@ -96,7 +96,7 @@ syntax_style = default
 # When Vi mode is enabled you can use modal editing features offered by Vi in the REPL.
 # When Vi mode is disabled emacs keybindings such as Ctrl-A for home and Ctrl-E
 # for end are available in the REPL.
-vi = False
+vi = True
 
 # Error handling
 # When one of multiple SQL statements causes an error, choose to either
@@ -159,7 +159,7 @@ Token.Toolbar.Transaction.Valid = 'bg:#222222 #00ff5f bold'
 Token.Toolbar.Transaction.Failed = 'bg:#222222 #ff005f bold'
 
 # color of table
-# you can use token or custom colors 
+# you can use token or custom colors
 Token.Output.Header = "#00ff5f bold"
 Token.Output.OddRow = ""
 Token.Output.EvenRow = ""
@@ -170,6 +170,7 @@ Token.Output.EvenRow = ""
 # DSN to call by -D option
 [alias_dsn]
 # example_dsn = postgresql://[user[:password]@][netloc][:port][/dbname]
+
 
 # Format for number representation
 # for decimal "d" - 12345678, ",d" - 12,345,678
