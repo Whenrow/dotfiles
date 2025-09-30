@@ -1,0 +1,37 @@
+[user]
+	name = William Henrotin
+	email = whe@odoo.com
+[core]
+	; pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta
+	editor = nvim
+[interactive]
+        diffFilter = delta --color-only
+[include]
+        path = /home/whe/.config/git/themes.gitconfig
+[delta]
+        navigate = true
+        light = false
+        features = catppuccin-mocha
+[diff]
+        colorMoved = default
+[color]
+	ui = true
+[push]
+	default = current
+	autoSetupRemote = true
+[alias]
+        co = checkout
+	push = push -u
+	pr = pull --rebase
+[checkout]
+	defaultRemote = origin
+[pager]
+        diff = delta
+[maintenance]
+	repo = /home/whe/src/odoo
+	repo = /home/whe/src/enterprise
+[rerere]
+	enable = true
+[merge]
+	conflictstyle = diff3
