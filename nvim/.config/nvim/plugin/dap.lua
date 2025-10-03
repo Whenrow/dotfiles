@@ -202,7 +202,7 @@ vim.keymap.set("n", "<Leader>sw", function() require('dapui').elements.watches.a
 vim.keymap.set("n", "<Leader>dw", function() require('dapui').float_element('watches', { enter = true }) end)
 vim.keymap.set("n", "<Leader>ds", function() require('dapui').float_element('scopes', { enter = true }) end)
 vim.keymap.set("n", "<Leader>dr", function() require('dapui').float_element('repl', { width=120, height=40, enter = true }) end)
-vim.keymap.set("n", "<Leader>dc", function() require('dapui').float_element('console', { width=120, height=40}) end)
+vim.keymap.set("n", "<Leader>dc", function() require('dapui').float_element('console', { width=200, height=80}) end)
 vim.keymap.set("n", "<Leader>d?", function() require('dapui').eval(nil, { enter = true }) end)
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
