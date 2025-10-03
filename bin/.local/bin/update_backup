@@ -1,0 +1,10 @@
+#!/bin/sh
+# if no argument, take current git branch
+if [ -z "$1" ]; then
+    DB_TO_BACKUP=$(git rev-parse --abbrev-ref HEAD)
+else
+    DB_TO_BACKUP=$1
+fi
+TMPL=$DB_TO_BACKUP-bk
+dropdb --if-exists $TMPL
+createdb -T $DB_TO_BACKUP $TMPL
