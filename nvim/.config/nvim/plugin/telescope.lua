@@ -112,15 +112,11 @@ local builtin = require("telescope.builtin")
 
 vim.keymap.set("n", "<C-b>", fzf.buffers)
 vim.keymap.set("n", "<C-p>", fzf.files)
-vim.keymap.set("n", "<leader>t", builtin.tags)
-vim.keymap.set("n", "<leader>r", function()
-    fzf.treesitter()
-end)
+vim.keymap.set("n", "<leader>t", fzf.tags)
+vim.keymap.set("n", "<leader>r", fzf.treesitter)
 vim.keymap.set("n", "<leader>T", vim.cmd.FzfLua)
-vim.keymap.set("n", "<leader><BS>", builtin.resume)
-vim.keymap.set({"n", "v"}, "<leader>gf", function()
-    builtin.grep_string({use_regex=false})
-end)
+vim.keymap.set("n", "<leader><BS>", fzf.resume)
+vim.keymap.set({"n", "v"}, "<leader>gf", fzf.grep_cword)
 vim.keymap.set("n", "<leader>/", function()
     fzf.grep({input_prompt = "Grep : "})
 end)
@@ -138,22 +134,17 @@ end)
 vim.keymap.set("n", "<leader>ce", function()
     fzf.files({cwd='~/.config/nvim/',hidden=true})
 end)
--- All lines of open files (great to find debuggers to be removed)
-vim.keymap.set("n", "<leader>l", function()
-    builtin.live_grep({grep_open_files = true})
-end)
 -- Command history
-vim.keymap.set("n", "<leader>R", builtin.command_history)
+vim.keymap.set("n", "<leader>R", fzf.command_history)
 -- Remap spell suggestion to the Telescope one
-vim.keymap.set("n", "z=", function()
-    builtin.spell_suggest()
-end)
-vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
+vim.keymap.set("n", "z=", fzf.spell_suggest)
+vim.keymap.set('n', '<leader>vh', fzf.helptags)
 -- LSP overrides
 
 -- Jump to tag or list in telescope if multiple possibilities
 local function telescope_tjump(query, exact)
     local tags = {}
+    vim.bo.tagfunc = ""
     if exact then
         tags = vim.fn.taglist("^" .. query .. "$")
     else
