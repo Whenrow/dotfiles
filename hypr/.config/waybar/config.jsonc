@@ -60,8 +60,18 @@
   "clock": {
     "format": "{:L%A %H:%M}",
     "format-alt": "{:L%d %B W%V %Y}",
-    "tooltip": false,
-    "on-click-right": "omarchy-cmd-tzupdate"
+    "tooltip-format": "<span>{calendar}</span>",
+    "on-click-right": "omarchy-cmd-tzupdate",
+    "calendar": {
+        "mode": "month",
+        "month-mon-col": 3,
+        "format": {
+            "months": "<span color='#ff6699'><b>{}</b></span>",
+            "days": "<span color='#cdd6f4'><b>{}</b></span>",
+            "weekdays": "<span color='#7CD37C'><b>{}</b></span>",
+            "today": "<span color='#ffcc66'><b>{}</b></span>"
+        }
+    }
   },
   "network": {
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
