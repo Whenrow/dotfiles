@@ -36,12 +36,23 @@ dap.adapters.python = function(cb, config)
             enrich_config = function(old_config, on_config)
                 local test
                 local class
+                vim.cmd("normal! mT")
                 local final_config = vim.deepcopy(old_config)
                 local db = vim.b.gitsigns_head
                 local additional_args = {path, '--dev=xml', '-d', db}
                 if old_config.current_test then
                     test = wutils.get_current_parent_name("function_definition")
                     if test then
+                        -- update module
+                        local file_path = vim.fn.expand('%:p')
+                        local module = ''
+                        if file_path:find('odoo/addons/') then
+                            module = vim.split(file_path, '/')[7]
+                        else
+                            module = vim.split(file_path, '/')[6]
+                        end
+                        table.insert(additional_args, '-u')
+                        table.insert(additional_args, module)
                         table.insert(additional_args, '--test-tags')
                         table.insert(additional_args, '.' .. test)
                     end
