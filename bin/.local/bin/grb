@@ -1,10 +1,10 @@
 #!/bin/sh
 # take first arg or current git branch
-if [ -z "$1" ]; then
-    base=$1
-else
+if [ $# -eq 0 ]; then
     git_branch=$(git rev-parse --abbrev-ref HEAD)
     base=$(echo $git_branch | sed -e 's/saas-/saas@/' | cut -d'-' -f1 | sed -e 's/saas@/saas-/')
+else
+    base=$1
 fi
 echo $base
 # get last remote name

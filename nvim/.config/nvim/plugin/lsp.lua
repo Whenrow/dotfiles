@@ -1,3 +1,9 @@
+vim.diagnostic.config({
+    virtual_text = true,
+    float = {
+        source = 'always',
+    },
+})
 -- local lsp = require("lsp-zero")
 --
 -- lsp.preset({
