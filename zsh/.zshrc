@@ -54,6 +54,7 @@ export forgit_rebase=grbs
 export SUDO_ASKPASS=/usr/bin/ssh-askpass
 export VI_MODE_SET_CURSOR=true
 export ODOO_RC="$HOME/.config/odoorc"
+export TASKRC="$HOME/.config/taskrc"
 # export COMMUNITY_PATH="$HOME/src/odoo"
 
 # nnn config
