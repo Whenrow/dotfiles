@@ -1,6 +1,10 @@
 local dap, dapui = require("dap"), require("dapui")
 local wutils = require("whenrow.utils")
 dapui.setup()
+dap.set_log_level('TRACE')
+
+-- Optional: Set a specific path for the log file
+-- By default, it's often in stdpath('cache')/dap.log
 dap.adapters.python = function(cb, config)
     local command = os.getenv('HOME') .. '/.pyenv/shims/python'
     local path = config.path or '--addons-path=addons,../enterprise'
@@ -131,21 +135,6 @@ dap.adapters.nlua = function(callback, config)
   callback({ type = 'server', host = config.host or "127.0.0.1", port = config.port or 8086 })
 end
 dapui.setup({
-    controls = {
-        element = "repl",
-        enabled = true,
-        icons = {
-            disconnect = "",
-            pause = "",
-            play = "",
-            run_last = "",
-            step_back = "",
-            step_into = "",
-            step_out = "",
-            step_over = "",
-            terminate = ""
-        }
-    },
     element_mappings = {},
     expand_lines = false,
     floating = {
@@ -213,9 +202,11 @@ vim.keymap.set('n', '<Leader>dlp', function() dap.set_breakpoint(nil, nil, vim.f
 vim.keymap.set("n", "<Leader>sw", function() dapui.elements.watches.add(vim.fn.expand "<cword>") end)
 vim.keymap.set("n", "<Leader>dw", function() dapui.float_element('watches', { enter = true }) end)
 vim.keymap.set("n", "<Leader>ds", function() dapui.float_element('scopes', { enter = true }) end)
-vim.keymap.set("n", "<Leader>dr", function() dapui.float_element('repl', { width=120, height=40, enter = true }) end)
+vim.keymap.set("n", "<Leader>dr", function() dapui.float_element('repl', { width=120, height=40 }) end)
 vim.keymap.set("n", "<Leader>dc", function() dapui.float_element('console', { width=200, height=80}) end)
 vim.keymap.set("n", "<Leader>d?", function() dapui.eval(nil, { enter = true }) end)
+vim.keymap.set("n", "<M-j>", function() dap.up() end)
+vim.keymap.set("n", "<M-k>", function() dap.down() end)
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()

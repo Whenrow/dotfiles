@@ -2,7 +2,7 @@ require("lazy").setup({
     -- UI
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
     { 'nvim-treesitter/nvim-treesitter-context' },
-    -- { 'nvim-treesitter/nvim-treesitter-textobjects' },
+    { 'nvim-treesitter/nvim-treesitter-textobjects' },
     { 'emmanueltouzery/decisive.nvim' },
     {
       "ibhagwan/fzf-lua",
@@ -53,14 +53,6 @@ require("lazy").setup({
             { 'williamboman/mason.nvim' },
             { 'williamboman/mason-lspconfig.nvim' },
 
-            -- Autocompletion
-            { 'hrsh7th/nvim-cmp' },
-            { 'hrsh7th/cmp-buffer' },
-            { 'hrsh7th/cmp-path' },
-            { 'saadparwaiz1/cmp_luasnip' },
-            { 'hrsh7th/cmp-nvim-lsp' },
-            { 'hrsh7th/cmp-nvim-lua' },
-
             -- Snippets
             { 'L3MON4D3/LuaSnip' },
             { 'rafamadriz/friendly-snippets' },
@@ -70,9 +62,13 @@ require("lazy").setup({
         'saghen/blink.cmp',
         version='1.*',
         -- optional: provides snippets for the snippet source
-        dependencies = { 'rafamadriz/friendly-snippets' },
+        dependencies = {
+            {'rafamadriz/friendly-snippets'},
+            {'rcarriga/cmp-dap'},
+            {'saghen/blink.compat'},
+        },
     },
-    {"zbirenbaum/copilot.lua"},
+    {"github/copilot.vim"},
     {"supermaven-inc/supermaven-nvim"},
 
     -- Git
@@ -88,7 +84,6 @@ require("lazy").setup({
     { "rcarriga/nvim-dap-ui", dependencies = { {
         "mfussenegger/nvim-dap",
         "nvim-neotest/nvim-nio",
-        "rcarriga/cmp-dap",
         "jbyuki/one-small-step-for-vimkind",
     } } },
     {
