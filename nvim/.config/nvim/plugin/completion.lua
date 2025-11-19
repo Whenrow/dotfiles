@@ -1,17 +1,32 @@
-blink = require("blink.cmp")
+local blink = require("blink.cmp")
 
 blink.setup({
-    enabled = function() return vim.tbl_contains({
-        "lua",
-        "markdown",
-        "python",
-        "javascript",
-        "xml",
-    }, vim.bo.filetype) end,
+    enabled = function()
+        return vim.bo.buftype ~= "prompt"
+            or vim.tbl_contains({
+                "lua",
+                "markdown",
+                "python",
+                "javascript",
+                "xml",
+                "dap-repl",
+            }, vim.bo.filetype)
+            or require("cmp_dap").is_dap_buffer()
+    end,
     cmdline = { enabled = false },
     sources = {
-        default = { "lsp", "path", "buffer", "snippets" },
-
+        default = { "lsp", "path", "buffer", "snippets", "dap" },
+        per_filetype = {
+            ["dap-repl"] = { "dap" },
+        },
+        providers = {
+            dap = {
+                name = "dap",
+                module = "blink.compat.source",
+                -- Only enable this source when it is actually available
+                enabled = true,
+            },
+        },
     },
     keymap = {
         preset = 'enter',

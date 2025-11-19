@@ -1,4 +1,4 @@
-require'nvim-treesitter'.setup {
+require'nvim-treesitter.configs'.setup {
     modules = {},
     update_strategy = "",
     -- A list of parser names, or "all"

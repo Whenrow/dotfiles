@@ -26,8 +26,30 @@ vim.keymap.set("n", "<leader>cp", function() vim.cmd.let("@+ = expand('%:p')") e
 vim.keymap.set("n", "<leader>s", function ()
     local stack_line = vim.api.nvim_get_current_line()
     local file, line = string.match(stack_line, 'File "([%w./-_]+)", line (%d+), in')
-    if file and line then
-        vim.api.nvim_command("e +" .. line .. " " .. file)
+    local target_win_id = nil
+    for _, win_id in ipairs(vim.api.nvim_list_wins()) do
+        local buf_id = vim.api.nvim_win_get_buf(win_id)
+        local ft = vim.api.nvim_buf_get_option(buf_id, 'filetype')
+        local buftype = vim.api.nvim_buf_get_option(buf_id, 'buftype')
+
+        if buftype == '' and ft == 'python' then
+          target_win_id = win_id
+          break
+        end
+    end
+
+    local new_buf_id = vim.fn.bufadd(file)
+    -- 2. Load the buffer's content into memory (if it's not already)
+    vim.fn.bufload(new_buf_id)
+
+    -- 3. Set the target window to display our new buffer
+    vim.api.nvim_win_set_buf(target_win_id, new_buf_id)
+    if vim.api.nvim_get_current_win() ~= target_win_id then
+        vim.api.nvim_win_close(0, false)
+    end
+    if line then
+        local pos = {tonumber(line), 0}
+        vim.api.nvim_win_set_cursor(target_win_id, pos)
     end
 end)
 -- source current file
