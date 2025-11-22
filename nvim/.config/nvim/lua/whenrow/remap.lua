@@ -52,6 +52,12 @@ vim.keymap.set("n", "<leader>s", function ()
         vim.api.nvim_win_set_cursor(target_win_id, pos)
     end
 end)
+-- Search and replace current word
+vim.keymap.set("n", "grp", function()
+    local old_name = vim.fn.expand("<cword>")
+    local new_name = vim.fn.input("New name: ", old_name)
+    vim.cmd(":%s/" .. old_name .. "/".. new_name .. "/g")
+end)
 -- source current file
 vim.keymap.set("n", "<F5>", vim.cmd.source)
 vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv")
