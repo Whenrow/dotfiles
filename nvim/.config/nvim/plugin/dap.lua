@@ -187,7 +187,10 @@ dapui.setup({
     }
 })
 vim.keymap.set('n', '<F2>', function() dap.run_to_cursor() end)
-vim.keymap.set('n', '<F3>', function() dap.continue() end)
+vim.keymap.set('n', '<F3>', function()
+    vim.cmd.w()
+    dap.continue()
+end)
 vim.keymap.set('n', '<F4>', function() dap.step_over() end)
 vim.keymap.set('n', '<F5>', function() dap.step_into({askForTargets=true}) end)
 vim.keymap.set('n', '<F6>', function() dap.step_out() end)
