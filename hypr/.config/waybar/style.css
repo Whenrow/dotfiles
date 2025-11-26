@@ -1,14 +1,20 @@
 @import "../omarchy/current/theme/waybar.css";
 
 * {
-  background-color: @background;
-  color: @foreground;
-
+  background-color: rgba(0, 0, 0, 0);
+  color: rgba(255, 255, 200, 1);
+  opacity: 1;
   border: none;
   border-radius: 0;
   min-height: 40px;
   font-family: 'Cousine Nerd Font Mono';
-  font-size: 16px;
+  font-size: 18px;
+}
+
+tooltip {
+  background-color: @background;
+  border: 1px solid @foreground;
+    border-radius: 4px;
 }
 
 .modules-left {
