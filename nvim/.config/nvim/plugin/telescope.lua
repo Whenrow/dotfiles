@@ -140,6 +140,7 @@ vim.keymap.set("n", "<leader>R", fzf.command_history)
 vim.keymap.set("n", "z=", fzf.spell_suggest)
 vim.keymap.set('n', '<leader>vh', fzf.helptags)
 -- LSP overrides
+vim.keymap.set('n', 'gd', fzf.lsp_definitions)
 
 -- Jump to tag or list in telescope if multiple possibilities
 local function telescope_tjump(query, exact)
