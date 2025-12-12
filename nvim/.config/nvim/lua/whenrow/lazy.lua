@@ -79,6 +79,7 @@ require("lazy").setup({
     'tpope/vim-surround',
     { 'JellyApple102/flote.nvim', config = function() require('flote').setup() end },
     { 'rmagatti/auto-session'},
+    {'ThePrimeagen/refactoring.nvim'},
 
     -- Debugging
     { "rcarriga/nvim-dap-ui", dependencies = { {
