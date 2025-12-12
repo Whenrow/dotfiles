@@ -24,7 +24,7 @@ autocmd("BufWinEnter", {
         local bufnr = vim.api.nvim_get_current_buf()
         local opts = {buffer = bufnr, remap = false}
         vim.keymap.set("n", "<leader>go", function()
-            vim.cmd.Git('commit -c ORIG_HEAD')
+            vim.cmd.Git('commit -C ORIG_HEAD')
         end, opts)
     end,
 })

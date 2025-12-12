@@ -68,6 +68,13 @@ dap.adapters.python = function(cb, config)
                         table.insert(additional_args, ':' .. class)
                     end
                 end
+                if old_config.install then
+                    module = vim.fn.input("module(s) to install: ")
+                    if module ~= '' then
+                        table.insert(additional_args, '-i')
+                        table.insert(additional_args, module)
+                    end
+                end
                 final_config.args = additional_args
                 on_config(final_config)
                 vim.notify('args: ' .. vim.inspect(final_config.args))
@@ -103,6 +110,14 @@ local config = {
         name = "This class",
         console = "integratedTerminal",
     },  {
+        type = 'python',
+        request = 'launch',
+        program = os.getenv('HOME') .. '/src/odoo/odoo-bin',
+        args = {path, '-d', db},
+        install = true,
+        name = "Odoo install + server",
+        console = "integratedTerminal",
+    }, {
         type = 'python',
         request = 'launch',
         program = os.getenv('HOME') .. '/src/odoo/odoo-bin',
@@ -188,7 +203,9 @@ dapui.setup({
 })
 vim.keymap.set('n', '<F2>', function() dap.run_to_cursor() end)
 vim.keymap.set('n', '<F3>', function()
-    vim.cmd.w()
+    if dap.session() == nil then
+        vim.cmd.w()
+    end
     dap.continue()
 end)
 vim.keymap.set('n', '<F4>', function() dap.step_over() end)
