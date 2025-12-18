@@ -11,4 +11,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 vim.cmd("filetype plugin indent on")
+-- If vim is opened inside /src/ dir, move up to take all dire into account
+-- (for tags and fuzzy finder)
+if vim.fn['expand']('%:p:h:h') == '/home/whe/src' then
+    vim.cmd.cd("..")
+    vim.env.ODOO = 'true'
+end
 require("whenrow")

@@ -1,91 +1,93 @@
 local dap, dapui = require("dap"), require("dapui")
 local wutils = require("whenrow.utils")
+require("dap-python").setup("os.getenv('HOME') .. '/.pyenv/shims/python")
 dapui.setup()
 dap.set_log_level('TRACE')
 
 -- Optional: Set a specific path for the log file
 -- By default, it's often in stdpath('cache')/dap.log
-dap.adapters.python = function(cb, config)
-    local command = os.getenv('HOME') .. '/.pyenv/shims/python'
-    local path = config.path or '--addons-path=addons,../enterprise'
-    local cwd = os.getenv('HOME') .. '/src/odoo'
-    local port = (config.connect or config).port or 5678
-    local host = (config.connect or config).host or '127.0.0.1'
-    local default_args = {'-m', 'debugpy', '--listen', port, 'odoo-bin', path, '-d', 'test'}
-    if config.request == 'attach' then
-        cb({
-            type = 'server',
-            port = assert(port, '`connect.port` is required for a python `attach` configuration'),
-            host = host,
-            options = {
-                source_filetype = 'python',
-            },
-            executable= {
+if vim.env.ODOO == 'true' then
+    dap.adapters.python = function(cb, config)
+        local command = os.getenv('HOME') .. '/.pyenv/shims/python'
+        local path = config.path or '--addons-path=addons,../enterprise'
+        local cwd = os.getenv('HOME') .. '/src/odoo'
+        local port = (config.connect or config).port or 5678
+        local host = (config.connect or config).host or '127.0.0.1'
+        local default_args = {'-m', 'debugpy', '--listen', port, 'odoo-bin', path, '-d', 'test'}
+        if config.request == 'attach' then
+            cb({
+                type = 'server',
+                port = assert(port, '`connect.port` is required for a python `attach` configuration'),
+                host = host,
+                options = {
+                    source_filetype = 'python',
+                },
+                executable= {
+                    command = command,
+                    args = default_args,
+                    cwd = cwd,
+                },
+            })
+        end
+        if config.request == 'launch' then
+            local args = {'-m', 'debugpy.adapter'}
+            cb({
+                type = 'executable',
+                options = {
+                    source_filetype = 'python',
+                    cwd = config.cwd or os.getenv('HOME') .. '/src/odoo',
+                },
                 command = command,
-                args = default_args,
-                cwd = cwd,
-            },
-        })
-    end
-    if config.request == 'launch' then
-        local args = {'-m', 'debugpy.adapter'}
-        cb({
-            type = 'executable',
-            options = {
-                source_filetype = 'python',
-                cwd = config.cwd or os.getenv('HOME') .. '/src/odoo',
-            },
-            command = command,
-            args = args,
-            enrich_config = function(old_config, on_config)
-                local test
-                local class
-                vim.cmd("normal! mT")
-                local final_config = vim.deepcopy(old_config)
-                local db = vim.b.gitsigns_head
-                local additional_args = {path, '--dev=xml', '-d', db}
-                if old_config.current_test then
-                    test = wutils.get_current_parent_name("function_definition")
-                    if test then
-                        -- update module
-                        local file_path = vim.fn.expand('%:p')
-                        local module = ''
-                        if file_path:find('odoo/addons/') then
-                            module = vim.split(file_path, '/')[7]
-                        else
-                            module = vim.split(file_path, '/')[6]
+                args = args,
+                enrich_config = function(old_config, on_config)
+                    local test
+                    local class
+                    vim.cmd("normal! mT")
+                    local final_config = vim.deepcopy(old_config)
+                    local db = vim.b.gitsigns_head
+                    local additional_args = {path, '--dev=xml', '-d', db}
+                    if old_config.current_test then
+                        test = wutils.get_current_parent_name("function_definition")
+                        if test then
+                            -- update module
+                            local file_path = vim.fn.expand('%:p')
+                            local module = ''
+                            if file_path:find('odoo/addons/') then
+                                module = vim.split(file_path, '/')[7]
+                            else
+                                module = vim.split(file_path, '/')[6]
+                            end
+                            table.insert(additional_args, '-u')
+                            table.insert(additional_args, module)
+                            table.insert(additional_args, '--test-tags')
+                            table.insert(additional_args, '.' .. test)
                         end
-                        table.insert(additional_args, '-u')
-                        table.insert(additional_args, module)
-                        table.insert(additional_args, '--test-tags')
-                        table.insert(additional_args, '.' .. test)
                     end
-                end
-                if old_config.current_class then
-                    class = wutils.get_current_parent_name("class_definition")
-                    if class then
-                        table.insert(additional_args, '--test-tags')
-                        table.insert(additional_args, ':' .. class)
+                    if old_config.current_class then
+                        class = wutils.get_current_parent_name("class_definition")
+                        if class then
+                            table.insert(additional_args, '--test-tags')
+                            table.insert(additional_args, ':' .. class)
+                        end
                     end
-                end
-                if old_config.install then
-                    module = vim.fn.input("module(s) to install: ")
-                    if module ~= '' then
-                        table.insert(additional_args, '-i')
-                        table.insert(additional_args, module)
+                    if old_config.edit then
+                        args = vim.fn.input("additionall args: ")
+                        if args ~= '' then
+                            table.insert(additional_args, args)
+                        end
                     end
-                end
-                final_config.args = additional_args
-                on_config(final_config)
-                vim.notify('args: ' .. vim.inspect(final_config.args))
-            end;
-        })
+                    final_config.args = additional_args
+                    on_config(final_config)
+                    vim.notify('args: ' .. vim.inspect(final_config.args))
+                end;
+            })
+        end
     end
 end
 
 local path = '--addons-path=addons,../enterprise'
 local db = vim.b.gitsigns_head
-local config = {
+local odoo_config = {
     {
         type = 'python',
         request = 'launch',
@@ -114,8 +116,8 @@ local config = {
         request = 'launch',
         program = os.getenv('HOME') .. '/src/odoo/odoo-bin',
         args = {path, '-d', db},
-        install = true,
-        name = "Odoo install + server",
+        edit = true,
+        name = "Add additional args",
         console = "integratedTerminal",
     }, {
         type = 'python',
@@ -135,9 +137,13 @@ local config = {
         console = "integratedTerminal",
     },
 }
-dap.configurations.python = config
-dap.configurations.javascript = config
-dap.configurations.xml = config
+if vim.env.ODOO == 'true' then
+    for _, c in ipairs(vim.fn.reverse(odoo_config)) do
+         table.insert(dap.configurations.python, 1, c)
+    end
+end
+dap.configurations.javascript = odoo_config
+dap.configurations.xml = odoo_config
 dap.configurations.lua = {
   {
     type = 'nlua',

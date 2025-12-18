@@ -11,10 +11,7 @@ autocmd({"BufWritePre"}, {
 })
 
 
--- If vim is opened inside /src/ dir, move up to take all dire into account
--- (for tags and fuzzy finder)
-if vim.fn['expand']('%:p:h:h') == '/home/whe/src' then
-    vim.cmd.cd("..")
+if vim.env.ODOO == 'true' then
     vim.lsp.enable('odools')
 end
 
