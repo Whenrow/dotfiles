@@ -11,7 +11,7 @@ autocmd({"BufWritePre"}, {
 })
 
 
-if vim.env.ODOO == 'true' then
+if vim.g.odoo_env then
     vim.lsp.enable('odools')
 end
 

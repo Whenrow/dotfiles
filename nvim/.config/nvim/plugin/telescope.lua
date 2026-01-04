@@ -108,8 +108,6 @@ telescope.setup {
 -- telescope.load_extension('fzf')
 telescope.load_extension('ui-select')
 
-local builtin = require("telescope.builtin")
-
 vim.keymap.set("n", "<C-b>", fzf.buffers)
 vim.keymap.set("n", "<C-p>", fzf.files)
 vim.keymap.set("n", "<leader>t", fzf.tags)
@@ -121,7 +119,7 @@ vim.keymap.set("n", "<leader>/", function()
     fzf.grep({input_prompt = "Grep : "})
 end)
 vim.keymap.set("n", "<leader>?", function()
-    builtin.grep_cword({search = vim.fn.input("eGrep : "), use_regex=true})
+    fzf.grep({input_prompt = "eGrep : ", no_esc=true, rg_opts="--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -U"})
 end)
 -- open .config/ folder in Telescope
 vim.keymap.set("n", "<leader>cc", function()

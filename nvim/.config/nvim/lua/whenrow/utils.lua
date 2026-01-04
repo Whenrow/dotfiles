@@ -21,7 +21,7 @@ vim.keymap.set('n', '<leader>cf', function()
     local func_name = M.get_current_parent_name("function_definition")
     print("Current function: " .. func_name)
 end, { desc = "Show current function name" })
-vim.keymap.set('n', '<leader>cp', function()
+vim.keymap.set('n', '<leader>cm', function()
     local func_name = M.get_current_parent_name("function_definition")
     if func_name then
         vim.fn.setreg('+', func_name)

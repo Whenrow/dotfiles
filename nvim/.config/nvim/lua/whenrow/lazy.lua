@@ -2,6 +2,7 @@ require("lazy").setup({
     -- UI
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
     { 'nvim-treesitter/nvim-treesitter-context' },
+    { 'nvim-treesitter/nvim-treesitter-refactor' },
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
     { 'emmanueltouzery/decisive.nvim' },
     {
@@ -42,22 +43,6 @@ require("lazy").setup({
     },
     {'brenoprata10/nvim-highlight-colors'},
     { 'stevearc/oil.nvim'},
-
-    -- lsp stuff
-    {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'v2.x',
-        dependencies = {
-            -- LSP Support
-            { 'neovim/nvim-lspconfig' },
-            { 'williamboman/mason.nvim' },
-            { 'williamboman/mason-lspconfig.nvim' },
-
-            -- Snippets
-            { 'L3MON4D3/LuaSnip' },
-            { 'rafamadriz/friendly-snippets' },
-        }
-    },
     {
         'saghen/blink.cmp',
         version='1.*',
@@ -87,6 +72,7 @@ require("lazy").setup({
         "nvim-neotest/nvim-nio",
         "jbyuki/one-small-step-for-vimkind",
     } } },
+    {'mfussenegger/nvim-dap-python'},
     {
         "kristijanhusak/vim-dadbod-completion", dependencies = {
             "tpope/vim-dadbod",

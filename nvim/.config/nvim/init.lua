@@ -15,6 +15,7 @@ vim.cmd("filetype plugin indent on")
 -- (for tags and fuzzy finder)
 if vim.fn['expand']('%:p:h:h') == '/home/whe/src' then
     vim.cmd.cd("..")
-    vim.env.ODOO = 'true'
+    vim.g.odoo_env = true
 end
+vim.lsp.enable('ruff')
 require("whenrow")

@@ -1,12 +1,12 @@
 local dap, dapui = require("dap"), require("dapui")
 local wutils = require("whenrow.utils")
-require("dap-python").setup("os.getenv('HOME') .. '/.pyenv/shims/python")
+require("dap-python").setup(os.getenv('HOME') .. '/.pyenv/shims/python')
 dapui.setup()
 dap.set_log_level('TRACE')
 
 -- Optional: Set a specific path for the log file
 -- By default, it's often in stdpath('cache')/dap.log
-if vim.env.ODOO == 'true' then
+if vim.g.odoo_env then
     dap.adapters.python = function(cb, config)
         local command = os.getenv('HOME') .. '/.pyenv/shims/python'
         local path = config.path or '--addons-path=addons,../enterprise'
@@ -46,19 +46,21 @@ if vim.env.ODOO == 'true' then
                     local final_config = vim.deepcopy(old_config)
                     local db = vim.b.gitsigns_head
                     local additional_args = {path, '--dev=xml', '-d', db}
+                    if vim.g.odoo_update then
+                        local module = ''
+                        local file_path = vim.fn.expand('%:p')
+                        if file_path:find('odoo/addons/') then
+                            module = vim.split(file_path, '/')[7]
+                        else
+                            module = vim.split(file_path, '/')[6]
+                        end
+                        table.insert(additional_args, '-u')
+                        table.insert(additional_args, module)
+                    end
                     if old_config.current_test then
                         test = wutils.get_current_parent_name("function_definition")
                         if test then
                             -- update module
-                            local file_path = vim.fn.expand('%:p')
-                            local module = ''
-                            if file_path:find('odoo/addons/') then
-                                module = vim.split(file_path, '/')[7]
-                            else
-                                module = vim.split(file_path, '/')[6]
-                            end
-                            table.insert(additional_args, '-u')
-                            table.insert(additional_args, module)
                             table.insert(additional_args, '--test-tags')
                             table.insert(additional_args, '.' .. test)
                         end
@@ -137,7 +139,7 @@ local odoo_config = {
         console = "integratedTerminal",
     },
 }
-if vim.env.ODOO == 'true' then
+if vim.g.odoo_env then
     for _, c in ipairs(vim.fn.reverse(odoo_config)) do
          table.insert(dap.configurations.python, 1, c)
     end
@@ -230,7 +232,7 @@ vim.keymap.set("n", "<Leader>dw", function() dapui.float_element('watches', { en
 vim.keymap.set("n", "<Leader>ds", function() dapui.float_element('scopes', { enter = true }) end)
 vim.keymap.set("n", "<Leader>dr", function() dapui.float_element('repl', { width=120, height=40 }) end)
 vim.keymap.set("n", "<Leader>dc", function() dapui.float_element('console', { width=200, height=80}) end)
-vim.keymap.set("n", "<Leader>d?", function() dapui.eval(nil, { enter = true }) end)
+vim.keymap.set({"n", "v"}, "<Leader>d?", function() dapui.eval(nil, { enter = true }) end)
 vim.keymap.set("n", "<M-j>", function() dap.up() end)
 vim.keymap.set("n", "<M-k>", function() dap.down() end)
 
