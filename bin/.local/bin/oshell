@@ -1,0 +1,7 @@
+#!/bin/sh
+# if not in $HOME/src/odoo, exit
+if [ -f "./odoo-bin" ]; then
+    DB=$(git rev-parse --abbrev-ref HEAD)
+    ./odoo-bin shell -d $DB --no-http --shell-interface=ipython $*
+fi
+
