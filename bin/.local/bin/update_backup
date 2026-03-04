@@ -5,6 +5,9 @@ if [ -z "$1" ]; then
 else
     DB_TO_BACKUP=$1
 fi
+if ! psql -lqt | cut -d \| -f 1 | grep -qw "$DB_TO_BACKUP"; then
+    DB_TO_BACKUP=$(git rev-parse --abbrev-ref HEAD)
+fi
 TMPL=$DB_TO_BACKUP-bk
 dropdb --if-exists $TMPL
 createdb -T $DB_TO_BACKUP $TMPL
