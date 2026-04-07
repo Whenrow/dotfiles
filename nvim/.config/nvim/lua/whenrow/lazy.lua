@@ -73,6 +73,7 @@ require("lazy").setup({
         "nvim-neotest/nvim-nio",
         "jbyuki/one-small-step-for-vimkind",
     } } },
+    "igorlfs/nvim-dap-view",
     {'mfussenegger/nvim-dap-python'},
     {
         "kristijanhusak/vim-dadbod-completion", dependencies = {

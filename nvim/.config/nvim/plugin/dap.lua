@@ -1,7 +1,21 @@
-local dap, dapui = require("dap"), require("dapui")
+local dap = require("dap"),
+require("dapui").setup()
+require("dap-view").setup({
+    auto_toggle = true,
+    windows = {
+        size = 0.25,
+        position = "below",
+        terminal = {
+            size = 0.5,
+            position = "left",
+            -- List of debug adapters for which the terminal should be ALWAYS hidden
+            hide = {},
+        },
+    },
+    switchbuf = 'uselast',
+})
 local wutils = require("whenrow.utils")
 require("dap-python").setup(os.getenv('HOME') .. '/.pyenv/shims/python')
-dapui.setup()
 dap.set_log_level('TRACE')
 
 -- Optional: Set a specific path for the log file
@@ -42,7 +56,6 @@ if vim.g.odoo_env then
                 enrich_config = function(old_config, on_config)
                     local test
                     local class
-                    vim.cmd("normal! mT")
                     local final_config = vim.deepcopy(old_config)
                     local db = vim.b.gitsigns_head
                     local additional_args = {path, '--dev=xml', '-d', db}
@@ -60,6 +73,7 @@ if vim.g.odoo_env then
                     if old_config.current_test then
                         test = wutils.get_current_parent_name("function_definition")
                         if test then
+                            vim.cmd("normal! mT")
                             -- update module
                             table.insert(additional_args, '--test-tags')
                             table.insert(additional_args, '.' .. test)
@@ -68,6 +82,7 @@ if vim.g.odoo_env then
                     if old_config.current_class then
                         class = wutils.get_current_parent_name("class_definition")
                         if class then
+                            vim.cmd("normal! mT")
                             table.insert(additional_args, '--test-tags')
                             table.insert(additional_args, ':' .. class)
                         end
@@ -157,58 +172,58 @@ dap.configurations.lua = {
 dap.adapters.nlua = function(callback, config)
   callback({ type = 'server', host = config.host or "127.0.0.1", port = config.port or 8086 })
 end
-dapui.setup({
-    element_mappings = {},
-    expand_lines = false,
-    floating = {
-        border = "single",
-        mappings = {
-            close = { "q", "<Esc>" }
-        }
-    },
-    force_buffers = true,
-    icons = {
-        collapsed = "",
-        current_frame = "",
-        expanded = ""
-    },
-    layouts = { {
-        elements = { {
-            id = "scopes",
-            size = 0.25
-          }, {
-            id = "breakpoints",
-            size = 0.15
-          }, {
-            id = "stacks",
-            size = 0.35
-          }, {
-            id = "watches",
-            size = 0.25
-          } },
-        position = "left",
-        size = 40
-      }, {
-        elements = { {
-            id = "console",
-            size = 1
-          } },
-        position = "bottom",
-        size = 12
-      } },
-    mappings = {
-        edit = "e",
-        expand = { "<CR>", "<2-LeftMouse>" },
-        open = "o",
-        remove = "d",
-        repl = "r",
-        toggle = "t"
-    },
-    render = {
-        indent = 1,
-        max_value_lines = 100
-    }
-})
+-- dapui.setup({
+--     element_mappings = {},
+--     expand_lines = false,
+--     floating = {
+--         border = "single",
+--         mappings = {
+--             close = { "q", "<Esc>" }
+--         }
+--     },
+--     force_buffers = true,
+--     icons = {
+--         collapsed = "",
+--         current_frame = "",
+--         expanded = ""
+--     },
+--     layouts = { {
+--         elements = { {
+--             id = "scopes",
+--             size = 0.25
+--           }, {
+--             id = "breakpoints",
+--             size = 0.15
+--           }, {
+--             id = "stacks",
+--             size = 0.35
+--           }, {
+--             id = "watches",
+--             size = 0.25
+--           } },
+--         position = "left",
+--         size = 40
+--       }, {
+--         elements = { {
+--             id = "console",
+--             size = 1
+--           } },
+--         position = "bottom",
+--         size = 12
+--       } },
+--     mappings = {
+--         edit = "e",
+--         expand = { "<CR>", "<2-LeftMouse>" },
+--         open = "o",
+--         remove = "d",
+--         repl = "r",
+--         toggle = "t"
+--     },
+--     render = {
+--         indent = 1,
+--         max_value_lines = 100
+--     }
+-- })
 vim.keymap.set('n', '<F2>', function() dap.run_to_cursor() end)
 vim.keymap.set('n', '<F3>', function()
     if dap.session() == nil then
@@ -221,43 +236,29 @@ vim.keymap.set('n', '<F5>', function() dap.step_into({askForTargets=true}) end)
 vim.keymap.set('n', '<F6>', function() dap.step_out() end)
 vim.keymap.set('n', '<F10>', function()
     dap.disconnect({terminateDebuggee=false})
-    dapui.close()
 end)
 vim.keymap.set('n', '<Leader>db', function() dap.toggle_breakpoint() end)
 vim.keymap.set('n', '<Leader>dB', function() dap.set_breakpoint(vim.fn.input("Breakpoint condition :")) end)
 vim.keymap.set('n', '<Leader>deb', function() dap.set_exception_breakpoints() end)
 vim.keymap.set('n', '<Leader>dlp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
-vim.keymap.set("n", "<Leader>sw", function() dapui.elements.watches.add(vim.fn.expand "<cword>") end)
-vim.keymap.set("n", "<Leader>dw", function() dapui.float_element('watches', { enter = true }) end)
-vim.keymap.set("n", "<Leader>ds", function() dapui.float_element('scopes', { enter = true }) end)
-vim.keymap.set("n", "<Leader>dr", function() dapui.float_element('repl', { width=120, height=40 }) end)
-vim.keymap.set("n", "<Leader>dc", function() dapui.float_element('console', { width=200, height=80}) end)
-vim.keymap.set({"n", "v"}, "<Leader>d?", function() dapui.eval(nil, { enter = true }) end)
+-- vim.keymap.set("n", "<Leader>sw", function() dapui.elements.watches.add(vim.fn.expand "<cword>") end)
+-- vim.keymap.set("n", "<Leader>dw", function() dapui.float_element('watches', { enter = true }) end)
+-- vim.keymap.set("n", "<Leader>ds", function() dapui.float_element('scopes', { enter = true }) end)
+-- vim.keymap.set("n", "<Leader>dr", function() dapui.float_element('repl', { width=120, height=40 }) end)
+-- vim.keymap.set("n", "<Leader>dc", function() dapui.float_element('console', { width=200, height=80}) end)
+-- vim.keymap.set({"n", "v"}, "<Leader>d?", function() dapui.eval(nil, { enter = true }) end)
 vim.keymap.set("n", "<M-j>", function() dap.up() end)
 vim.keymap.set("n", "<M-k>", function() dap.down() end)
 
-dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-  dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-  dapui.close()
-end
-
--- require("cmp").setup({
---   enabled = function()
---     return vim.api.nvim_get_option_value(0, "buftype") ~= "prompt"
---         or require("cmp_dap").is_dap_buffer()
---   end
--- })
---
--- require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
---   sources = {
---     { name = "dap" },
---   },
--- })
+-- dap.listeners.after.event_initialized["dapui_config"] = function()
+--   dapui.open()
+-- end
+-- dap.listeners.before.event_terminated["dapui_config"] = function()
+--   dapui.close()
+-- end
+-- dap.listeners.before.event_exited["dapui_config"] = function()
+--   dapui.close()
+-- end
 
 vim.keymap.set('n', '<leader>dl', function()
   require"osv".launch({port = 8086})
