@@ -11,12 +11,22 @@ else
     tmux send-keys 'cd src/odoo' 'C-m'
     tmux split-window
     tmux send-keys 'cd src/enterprise' 'C-m'
+
     tmux new-window -t $session -n 'Nvim'
     tmux send-keys 'cd src/enterprise' 'C-m'
+
     tmux new-window -t $session -n 'Upgrade'
     tmux send-keys 'cd src/upgrade' 'C-m'
+
     tmux new-window -t $session -n 'Task'
     tmux send-keys 'taskwarrior-tui' 'C-m'
+
+    tmux new-window -t $session -n 'Github'
+    tmux send-keys 'gh dash' 'C-m'
+
+    tmux new-window -t $session -n 'Copilot'
+    tmux send-keys 'cd src/odoo' 'C-m'
+
     tmux select-window -t $session:2
     tmux send-keys 'nvim' 'C-m'
     tmux -u attach-session -t $session
