@@ -54,7 +54,6 @@ require("lazy").setup({
         },
     },
     {"github/copilot.vim"},
-    {"supermaven-inc/supermaven-nvim"},
 
     -- Git
     'tpope/vim-fugitive',
