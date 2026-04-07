@@ -7,7 +7,6 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/whe/.oh-my-zsh"
-source <(fzf --zsh)
 
 export EDITOR="nvim"
 # Set name of the theme to load --- if set to "random", it will
@@ -23,6 +22,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(fzf colored-man-pages zsh-autosuggestions forgit postgres extract vi-mode)
 
 source $ZSH/oh-my-zsh.sh
+source <(fzf --zsh)
 
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
