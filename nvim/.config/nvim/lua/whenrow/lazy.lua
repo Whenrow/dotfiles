@@ -59,7 +59,9 @@ require("lazy").setup({
     -- Git
     'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
-    'pwntester/octo.nvim',
+    {'pwntester/octo.nvim', dependencies = {
+        'nvim-lua/plenary.nvim',
+    } },
 
     -- Misc
     'tpope/vim-surround',
