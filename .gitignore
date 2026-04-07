@@ -4,3 +4,4 @@ hypr/.config/hypr/shaders/
 tmux/.config/tmux/plugins/*
 omarchy/.config/omarchy/current/background
 omarchy/.config/omarchy/current/theme
+*.github
