@@ -10,7 +10,7 @@ capabilities.general.markdown = {
 return {
   cmd = {server, '--stdlib', vim.fn.fnamemodify(server, ':h') .. '/typeshed/stdlib'},
   root_dir = '/home/whe/.local/share/nvim/odoo',
-  filetypes = { 'python' },
+  filetypes = { 'python', 'xml' },
   workspace_folders = {{
       uri = vim.uri_from_fname('/home/whe/src'),
       name = 'main_folder',
