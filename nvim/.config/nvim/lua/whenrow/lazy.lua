@@ -37,6 +37,9 @@ require("lazy").setup({
     'mbbill/undotree',
     'onsails/lspkind.nvim',
     'nvim-lualine/lualine.nvim',
+
+    -- Themes
+    'rebelot/kanagawa.nvim',
     {'sainnhe/everforest',
         priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
         opts = { }
