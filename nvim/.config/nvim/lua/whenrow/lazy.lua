@@ -39,6 +39,7 @@ require("lazy").setup({
     -- Git
     'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
+    'lewis6991/gitsigns.nvim',
     {'pwntester/octo.nvim', dependencies = {
         'nvim-lua/plenary.nvim',
     } },
@@ -47,7 +48,11 @@ require("lazy").setup({
     'tpope/vim-surround',
     { 'JellyApple102/flote.nvim', config = function() require('flote').setup() end },
     { 'rmagatti/auto-session'},
-    {'ThePrimeagen/refactoring.nvim'},
+    {'ThePrimeagen/refactoring.nvim',
+        dependencies = {
+            "lewis6991/async.nvim",
+      },
+    },
 
     -- Debugging
     { "rcarriga/nvim-dap-ui", dependencies = { {
@@ -65,5 +70,4 @@ require("lazy").setup({
     },
     -- Bullshit
     'eandrju/cellular-automaton.nvim',
-    'lewis6991/gitsigns.nvim',
 })
