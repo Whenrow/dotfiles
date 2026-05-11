@@ -1,6 +1,6 @@
 local dap = require("dap"),
 require("dapui").setup()
-require("dap-view").setup({
+local dap_view = require("dap-view").setup({
     auto_toggle = true,
     windows = {
         size = 0.25,
@@ -14,6 +14,7 @@ require("dap-view").setup({
     },
     switchbuf = 'uselast',
 })
+vim.cmd.DapViewClose()
 local wutils = require("whenrow.utils")
 require("dap-python").setup(os.getenv('HOME') .. '/.pyenv/shims/python')
 dap.set_log_level('TRACE')
@@ -234,19 +235,22 @@ end)
 vim.keymap.set('n', '<F4>', function() dap.step_over() end)
 vim.keymap.set('n', '<F5>', function() dap.step_into({askForTargets=true}) end)
 vim.keymap.set('n', '<F6>', function() dap.step_out() end)
-vim.keymap.set('n', '<F10>', function()
-    dap.disconnect({terminateDebuggee=false})
-end)
+vim.keymap.set('n', '<F10>', vim.cmd.DapTerminate)
 vim.keymap.set('n', '<Leader>db', function() dap.toggle_breakpoint() end)
 vim.keymap.set('n', '<Leader>dB', function() dap.set_breakpoint(vim.fn.input("Breakpoint condition :")) end)
 vim.keymap.set('n', '<Leader>deb', function() dap.set_exception_breakpoints() end)
 vim.keymap.set('n', '<Leader>dlp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
--- vim.keymap.set("n", "<Leader>sw", function() dapui.elements.watches.add(vim.fn.expand "<cword>") end)
+vim.keymap.set('n', '<leader>dp', function() return vim.cmd('DapViewJump repl') end)
+vim.keymap.set("n", "<Leader>sw", vim.cmd.DapViewWatch)
 -- vim.keymap.set("n", "<Leader>dw", function() dapui.float_element('watches', { enter = true }) end)
 -- vim.keymap.set("n", "<Leader>ds", function() dapui.float_element('scopes', { enter = true }) end)
 -- vim.keymap.set("n", "<Leader>dr", function() dapui.float_element('repl', { width=120, height=40 }) end)
 -- vim.keymap.set("n", "<Leader>dc", function() dapui.float_element('console', { width=200, height=80}) end)
--- vim.keymap.set({"n", "v"}, "<Leader>d?", function() dapui.eval(nil, { enter = true }) end)
+vim.keymap.set("n", "<Leader>dc", function()
+  local widgets = require('dap.ui.widgets')
+  widgets.centered_float(widgets.scopes)
+end)
+vim.keymap.set({"n", "v"}, "<Leader>d?", function() require('dap.ui.widgets').hover() end)
 vim.keymap.set("n", "<M-j>", function() dap.up() end)
 vim.keymap.set("n", "<M-k>", function() dap.down() end)
 
