@@ -16,6 +16,9 @@ tooltip {
   border: 1px solid @foreground;
     border-radius: 4px;
 }
+tooltip label {
+  color: @foreground;
+}
 
 .modules-left {
   margin-left: 8px;
