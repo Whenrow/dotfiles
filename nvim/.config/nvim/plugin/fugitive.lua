@@ -28,4 +28,18 @@ autocmd("BufWinEnter", {
         end, opts)
     end,
 })
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("DisableLspOnFugitive", { clear = true }),
+  desc = "Detach LSP from fugitive buffers",
+  callback = function(args)
+    local bufnr = args.buf
+    local client_id = args.data.client_id
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
+
+    -- Check if the buffer name starts with the fugitive URI scheme
+    if vim.startswith(bufname, "fugitive://") then
+      vim.lsp.buf_detach_client(bufnr, client_id)
+    end
+  end,
+})
 
