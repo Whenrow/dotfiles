@@ -1,9 +1,9 @@
 require("lazy").setup({
     -- UI
-    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
-    { 'nvim-treesitter/nvim-treesitter-context' },
-    { 'nvim-treesitter/nvim-treesitter-refactor' },
-    { 'nvim-treesitter/nvim-treesitter-textobjects' },
+    { 'nvim-treesitter/nvim-treesitter', branch='main', build = ':TSUpdate' },
+    { 'nvim-treesitter/nvim-treesitter-context', branch='master'},
+    { 'nvim-treesitter/nvim-treesitter-locals'},
+    { 'nvim-treesitter/nvim-treesitter-textobjects', branch='main'},
     { 'emmanueltouzery/decisive.nvim' },
     {
       "ibhagwan/fzf-lua",
@@ -35,7 +35,6 @@ require("lazy").setup({
         },
     },
     'mbbill/undotree',
-    'onsails/lspkind.nvim',
     'nvim-lualine/lualine.nvim',
 
     -- Themes

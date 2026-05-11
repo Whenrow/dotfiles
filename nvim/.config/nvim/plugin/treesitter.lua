@@ -1,4 +1,4 @@
-require'nvim-treesitter.configs'.setup {
+require'nvim-treesitter'.setup {
     modules = {},
     update_strategy = "",
     -- A list of parser names, or "all"
@@ -98,3 +98,4 @@ require'treesitter-context'.setup{
   zindex = 20, -- The Z-index of the context window
 }
 vim.cmd([[highlight TreesitterContext gui=bold guisp=Normal]])
+require('nvim-treesitter').install({"python", "javascript", "lua", "css"})
