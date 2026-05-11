@@ -13,27 +13,6 @@ require("lazy").setup({
       -- dependencies = { "nvim-mini/mini.icons" },
       opts = {}
     },
-    {
-        'nvim-telescope/telescope.nvim',
-        event = 'VimEnter',
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            {
-                'nvim-telescope/telescope-fzf-native.nvim',
-
-                -- `build` is used to run some command when the plugin is installed/updated.
-                -- This is only run then, not every time Neovim starts up.
-                build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
-
-                -- `cond` is a condition used to determine whether this plugin should be
-                -- installed and loaded.
-                cond = function()
-                    return vim.fn.executable 'make' == 1
-                end,
-            },
-            { 'nvim-telescope/telescope-ui-select.nvim' },
-        },
-    },
     'mbbill/undotree',
     'nvim-lualine/lualine.nvim',
 
