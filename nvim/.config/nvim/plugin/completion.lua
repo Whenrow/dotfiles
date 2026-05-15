@@ -24,7 +24,13 @@ blink.setup({
                 name = "dap",
                 module = "blink.compat.source",
                 -- Only enable this source when it is actually available
-                enabled = function() return vim.bo.filetype == "dap-repl" end,
+                enabled = function()
+                    if require('dap').session() then
+                        return true
+                    else
+                        return false
+                    end
+                end,
             },
         },
     },
