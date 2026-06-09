@@ -1,4 +1,5 @@
 local blink = require("blink.cmp")
+dap = require('dap')
 
 blink.setup({
     enabled = function()
@@ -25,7 +26,7 @@ blink.setup({
                 module = "blink.compat.source",
                 -- Only enable this source when it is actually available
                 enabled = function()
-                    if require('dap').session() then
+                    if dap.session() then
                         return true
                     else
                         return false

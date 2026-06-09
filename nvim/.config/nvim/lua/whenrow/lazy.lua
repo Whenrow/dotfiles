@@ -55,12 +55,8 @@ require("lazy").setup({
     },
 
     -- Debugging
-    { "rcarriga/nvim-dap-ui", dependencies = { {
-        "mfussenegger/nvim-dap",
-        "nvim-neotest/nvim-nio",
-        "jbyuki/one-small-step-for-vimkind",
-    } } },
     "igorlfs/nvim-dap-view",
+    "jbyuki/one-small-step-for-vimkind",
     {'mfussenegger/nvim-dap-python'},
     {
         "kristijanhusak/vim-dadbod-completion", dependencies = {

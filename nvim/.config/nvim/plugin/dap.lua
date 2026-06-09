@@ -1,5 +1,4 @@
-local dap = require("dap"),
-require("dapui").setup()
+local dap = require("dap")
 local dap_view = require("dap-view").setup({
     auto_toggle = true,
     windows = {
@@ -173,58 +172,6 @@ dap.configurations.lua = {
 dap.adapters.nlua = function(callback, config)
   callback({ type = 'server', host = config.host or "127.0.0.1", port = config.port or 8086 })
 end
--- dapui.setup({
---     element_mappings = {},
---     expand_lines = false,
---     floating = {
---         border = "single",
---         mappings = {
---             close = { "q", "<Esc>" }
---         }
---     },
---     force_buffers = true,
---     icons = {
---         collapsed = "",
---         current_frame = "",
---         expanded = ""
---     },
---     layouts = { {
---         elements = { {
---             id = "scopes",
---             size = 0.25
---           }, {
---             id = "breakpoints",
---             size = 0.15
---           }, {
---             id = "stacks",
---             size = 0.35
---           }, {
---             id = "watches",
---             size = 0.25
---           } },
---         position = "left",
---         size = 40
---       }, {
---         elements = { {
---             id = "console",
---             size = 1
---           } },
---         position = "bottom",
---         size = 12
---       } },
---     mappings = {
---         edit = "e",
---         expand = { "<CR>", "<2-LeftMouse>" },
---         open = "o",
---         remove = "d",
---         repl = "r",
---         toggle = "t"
---     },
---     render = {
---         indent = 1,
---         max_value_lines = 100
---     }
--- })
 vim.keymap.set('n', '<F2>', function() dap.run_to_cursor() end)
 vim.keymap.set('n', '<F3>', function()
     if dap.session() == nil then
@@ -242,28 +189,29 @@ vim.keymap.set('n', '<Leader>deb', function() dap.set_exception_breakpoints() en
 vim.keymap.set('n', '<Leader>dlp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
 vim.keymap.set('n', '<leader>dp', function() return vim.cmd('DapViewJump repl') end)
 vim.keymap.set("n", "<Leader>sw", vim.cmd.DapViewWatch)
--- vim.keymap.set("n", "<Leader>dw", function() dapui.float_element('watches', { enter = true }) end)
--- vim.keymap.set("n", "<Leader>ds", function() dapui.float_element('scopes', { enter = true }) end)
--- vim.keymap.set("n", "<Leader>dr", function() dapui.float_element('repl', { width=120, height=40 }) end)
--- vim.keymap.set("n", "<Leader>dc", function() dapui.float_element('console', { width=200, height=80}) end)
 vim.keymap.set("n", "<Leader>dc", function()
   local widgets = require('dap.ui.widgets')
   widgets.centered_float(widgets.scopes)
 end)
-vim.keymap.set({"n", "v"}, "<Leader>d?", function() require('dap.ui.widgets').hover() end)
+vim.keymap.set({"n", "v"}, "<Leader>d?", function()
+  require('dap.ui.widgets').hover(nil, {
+    border = 'rounded',
+    title = ' DAP Hover ',
+    width = 60,
+    height = 60,
+    winblend = 10,
+  })
+end)
 vim.keymap.set("n", "<M-j>", function() dap.up() end)
 vim.keymap.set("n", "<M-k>", function() dap.down() end)
-
--- dap.listeners.after.event_initialized["dapui_config"] = function()
---   dapui.open()
--- end
--- dap.listeners.before.event_terminated["dapui_config"] = function()
---   dapui.close()
--- end
--- dap.listeners.before.event_exited["dapui_config"] = function()
---   dapui.close()
--- end
 
 vim.keymap.set('n', '<leader>dl', function()
   require"osv".launch({port = 8086})
 end, { noremap = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "dap-float",
+  callback = function(ev)
+    vim.keymap.set('n', 'q', '<cmd>close!<cr>', { buffer = ev.buf, noremap = true, silent = true })
+  end,
+})
