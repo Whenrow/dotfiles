@@ -1,4 +1,4 @@
-alias gco='git branch | fzf | xargs git checkout'
+alias gco='_fzf_git_branches --no-multi | xargs git checkout'
 alias git-fixup='git log --oneline -n 100 | fzf | cut -d " " -f 1 | xargs git commit --no-verify --fixup'
 alias ddb="psql -lt | awk '{print $1}' | fzf | xargs dropdb"
 alias gfom='git fetch origin master'

@@ -23,6 +23,7 @@ plugins=(fzf colored-man-pages zsh-autosuggestions forgit postgres extract vi-mo
 
 source $ZSH/oh-my-zsh.sh
 source <(fzf --zsh)
+source $HOME/dotfiles/fzf-git.sh
 
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
