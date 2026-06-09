@@ -23,3 +23,20 @@ vim.api.nvim_create_autocmd("TermOpen", {
     group = "Random",
     command = "setlocal nonumber norelativenumber signcolumn=no"
 })
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "xml",
+    group = "Random",
+    command = "setlocal foldmethod=expr"
+})
+vim.opt.foldexpr = "v:lua.XmlRecordFold(v:lnum)"
+vim.opt.foldlevelstart = 0
+
+function _G.XmlRecordFold(lnum)
+  local line = vim.fn.getline(lnum)
+  if line:match("<record.*>") or line:match("<record$") then
+    return ">1"
+  elseif line:match("</record>") then
+    return "<1"
+  end
+  return "="
+end
