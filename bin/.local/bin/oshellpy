@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+import os
+import sys
+import subprocess
+
+def main():
+    if os.path.isfile("./odoo-bin"):
+        try:
+            db = subprocess.check_output(
+                ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+                text=True,
+                stderr=subprocess.DEVNULL
+            ).strip()
+        except subprocess.CalledProcessError:
+            return
+
+        cmd = ["./odoo-bin", "shell", "-d", db, "--no-http", "--shell-interface=ipython"] + sys.argv[1:]
+        os.execvp(cmd[0], cmd)
+
+if __name__ == "__main__":
+    main()

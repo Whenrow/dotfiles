@@ -139,6 +139,13 @@ local odoo_config = {
     }, {
         type = 'python',
         request = 'launch',
+        program = os.getenv('HOME') .. '/src/odoo/odoo-bin shell',
+        args = {path, '-d', db},
+        name = "Shell file",
+        console = "integratedTerminal",
+    }, {
+        type = 'python',
+        request = 'launch',
         program = os.getenv('HOME') .. '/src/odoo/odoo-bin',
         args = {path, '-d', db},
         name = "Odoo server (community only)",
