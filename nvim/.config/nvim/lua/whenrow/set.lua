@@ -15,6 +15,7 @@ vim.opt.tags = ".tags"
 vim.opt.termguicolors = true
 vim.opt.textwidth = 100
 vim.opt.undofile = true
+vim.opt.spr = true
 vim.cmd([[highlight ColorColumn ctermbg=0 guibg=#313244]])
 vim.opt.cc = "100"
 -- open terminal mode in insert mode

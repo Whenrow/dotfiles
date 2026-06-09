@@ -3,6 +3,19 @@ local status_ok, fzf = pcall(require, "fzf-lua")
 if not status_ok then
   return
 end
+fzf.setup {
+    fzf_colors = true,
+    previewers = {
+        builtin = {
+            extensions = {
+                -- neovim terminal only supports `viu` block output
+                ["png"] = { "kitten", "icat" },
+                ["jpg"] = { "kitten", "icat" },
+                ["gif"] = { "kitten", "icat" },
+            },
+        },
+    },
+}
 
 local previewers = require "fzf-lua.previewer"
 
@@ -34,7 +47,12 @@ end)
 vim.keymap.set("n", "<leader>R", fzf.command_history)
 -- Remap spell suggestion to the Telescope one
 vim.keymap.set("n", "z=", fzf.spell_suggest)
-vim.keymap.set('n', '<leader>vh', fzf.helptags)
+vim.keymap.set('n', '<leader>vh', function()
+    fzf.helptags({
+        actions={
+            ["enter"] = fzf.actions.help_vert,
+        }})
+    end)
 -- LSP overrides
 vim.keymap.set('n', 'gd', fzf.lsp_definitions)
 -- Git overrides
