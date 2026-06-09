@@ -1,8 +1,8 @@
 @import "../omarchy/current/theme/waybar.css";
 
 * {
-  background-color: rgba(0, 0, 0, 0);
-  color: rgba(14, 27, 38, 1);
+  background-color: @background;
+  color: @foreground;
   opacity: 1;
   border: none;
   border-radius: 0;
@@ -16,8 +16,13 @@ tooltip {
   border: 1px solid @foreground;
     border-radius: 4px;
 }
-tooltip label {
+tooltip * {
+  font-family: 'BitstromWera Nerd Font Mono';
   color: @foreground;
+  font-size: 14px;
+  font-weight: lighter;
+  padding: 0px;
+  text-shadow: 0 0;
 }
 
 .modules-left {
@@ -63,10 +68,6 @@ tooltip label {
 
 #custom-expand-icon {
   margin-right: 18px;
-}
-
-tooltip {
-  padding: 2px;
 }
 
 #custom-update {
