@@ -43,6 +43,7 @@ require("lazy").setup({
     {'pwntester/octo.nvim', dependencies = {
         'nvim-lua/plenary.nvim',
     } },
+    'AndrewRadev/linediff.vim',
 
     -- Misc
     'tpope/vim-surround',
