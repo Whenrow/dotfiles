@@ -42,48 +42,47 @@ require'nvim-treesitter'.setup {
             node_decremental = "<M-BS>",
         },
     },
-    textobjects = {
-        select = {
-            enable = true,
+}
+require('nvim-treesitter-textobjects').setup({
+    select = {
+        enable = true,
 
-            -- Automatically jump forward to textobj, similar to targets.vim
-            lookahead = true,
+        -- Automatically jump forward to textobj, similar to targets.vim
+        lookahead = true,
 
-            keymaps = {
-                -- You can use the capture groups defined in textobjects.scm
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-                ["id"] = "@docstring.inner",
-                ["ad"] = "@docstring.outer",
-                ["ac"] = "@class.outer",
-                -- You can optionally set descriptions to the mappings (used in the desc parameter of
-                -- nvim_buf_set_keymap) which plugins like which-key display
-                ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-            },
-            -- You can choose the select mode (default is charwise 'v')
-            --
-            -- Can also be a function which gets passed a table with the keys
-            -- * query_string: eg '@function.inner'
-            -- * method: eg 'v' or 'o'
-            -- and should return the mode ('v', 'V', or '<c-v>') or a table
-            -- mapping query_strings to modes.
-            selection_modes = {
-                ['@parameter.outer'] = 'v', -- charwise
-                ['@function.outer'] = 'V', -- linewise
-                ['@class.outer'] = '<c-v>', -- blockwise
-            },
+        keymaps = {
+            -- You can use the capture groups defined in textobjects.scm
+            ["af"] = "@function.outer",
+            ["if"] = "@function.inner",
         },
-        swap = {
-            enable = true,
-            swap_next = {
-                ["<leader>a"] = "@parameter.inner",
-            },
-            swap_previous = {
-                ["<leader>A"] = "@parameter.inner",
-            },
+        -- You can choose the select mode (default is charwise 'v')
+        --
+        -- Can also be a function which gets passed a table with the keys
+        -- * query_string: eg '@function.inner'
+        -- * method: eg 'v' or 'o'
+        -- and should return the mode ('v', 'V', or '<c-v>') or a table
+        -- mapping query_strings to modes.
+        selection_modes = {
+            ['@parameter.outer'] = 'v', -- charwise
+            ['@function.outer'] = 'V', -- linewise
+            ['@class.outer'] = '<c-v>', -- blockwise
         },
     },
-}
+})
+--
+-- keymaps
+vim.keymap.set("n", "<leader>a", function()
+  require("nvim-treesitter-textobjects.swap").swap_next "@parameter.inner"
+end)
+vim.keymap.set("n", "<leader>A", function()
+  require("nvim-treesitter-textobjects.swap").swap_previous "@parameter.outer"
+end)
+vim.keymap.set({ "x", "o" }, "if", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@function.inner", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "af", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@function.outer", "textobjects")
+end)
 require'treesitter-context'.setup{
   enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
   max_lines = 2, -- How many lines the window should span. Values <= 0 mean no limit.
