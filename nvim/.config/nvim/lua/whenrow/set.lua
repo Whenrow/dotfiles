@@ -40,3 +40,8 @@ function _G.XmlRecordFold(lnum)
   end
   return "="
 end
+vim.g.diffs = {
+  integrations = {
+    fugitive = true,
+  }
+}

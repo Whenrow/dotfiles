@@ -55,6 +55,9 @@ vim.keymap.set('n', '<leader>vh', function()
     end)
 -- LSP overrides
 vim.keymap.set('n', 'gd', fzf.lsp_definitions)
+vim.keymap.set('n', 'grr', function()
+    fzf.lsp_references({async_or_timeout=true})
+end)
 -- Git overrides
 vim.keymap.set('n', '<leader>go', function()
     print(utils.get_file_repo())

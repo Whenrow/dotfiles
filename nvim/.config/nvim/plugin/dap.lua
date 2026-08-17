@@ -1,5 +1,6 @@
 local dap = require("dap")
-local dap_view = require("dap-view").setup({
+local dap_view = require("dap-view")
+dap_view.setup({
     auto_toggle = true,
     windows = {
         size = 0.25,
@@ -13,7 +14,6 @@ local dap_view = require("dap-view").setup({
     },
     switchbuf = 'uselast',
 })
-vim.cmd.DapViewClose()
 local wutils = require("whenrow.utils")
 require("dap-python").setup(os.getenv('HOME') .. '/.pyenv/shims/python')
 dap.set_log_level('TRACE')
@@ -201,13 +201,7 @@ vim.keymap.set("n", "<Leader>dc", function()
   widgets.centered_float(widgets.scopes)
 end)
 vim.keymap.set({"n", "v"}, "<Leader>d?", function()
-  require('dap.ui.widgets').hover(nil, {
-    border = 'rounded',
-    title = ' DAP Hover ',
-    width = 60,
-    height = 60,
-    winblend = 10,
-  })
+    dap_view.hover()
 end)
 vim.keymap.set("n", "<M-j>", function() dap.up() end)
 vim.keymap.set("n", "<M-k>", function() dap.down() end)

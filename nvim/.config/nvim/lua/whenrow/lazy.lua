@@ -44,6 +44,7 @@ require("lazy").setup({
         'nvim-lua/plenary.nvim',
     } },
     'AndrewRadev/linediff.vim',
+    'barrettruth/diffs.nvim',
 
     -- Misc
     'tpope/vim-surround',
