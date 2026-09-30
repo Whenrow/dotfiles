@@ -10,7 +10,6 @@ omarchy/.config/omarchy/themes
 omarchy/.config/omarchy/themed
 hypr/.config/hypr/.luarc.json
 *.github
-bin/.local/bin/
 bin/.local/bin/bw
 bin/.local/bin/claude
 bin/.local/bin/codex

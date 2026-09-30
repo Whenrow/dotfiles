@@ -7,9 +7,9 @@
           "id": "omarchy.indicators"
         },
         {
-          "id": "omarchy.clock",
           "format": "ddd d MMM HH:mm",
           "formatAlt": "d MMMM 'W'ww yyyy",
+          "id": "omarchy.clock",
           "verticalFormat": "HH\n—\nmm"
         },
         {
@@ -63,20 +63,20 @@
     "position": "top",
     "transparent": false
   },
+  "cloneSourceRestores": [
+    "whe.lock"
+  ],
+  "disabledPlugins": [
+    "omarchy.lock"
+  ],
   "idle": {
-    "lock": 300,
-    "screensaver": 150
+    "lock": 400,
+    "screensaver": 300
   },
   "plugins": [
     {
       "id": "whe.lock"
     }
   ],
-  "version": 1,
-  "disabledPlugins": [
-    "omarchy.lock"
-  ],
-  "cloneSourceRestores": [
-    "whe.lock"
-  ]
+  "version": 1
 }

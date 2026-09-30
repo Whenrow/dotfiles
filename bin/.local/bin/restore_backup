@@ -5,6 +5,7 @@ if [ -z "$1" ]; then
 else
     DB_TO_BACKUP=$1
 fi
+killodoo
 TMPL=$DB_TO_BACKUP-bk
 dropdb --if-exists $DB_TO_BACKUP
 createdb -T $TMPL $DB_TO_BACKUP

@@ -1,2 +1,17 @@
+[bar]
+scale-with-font = false
+size-horizontal = 40
+background = "#263530"
+text = "#b9cbc4"
+
+[popups]
+background = "#263530"
+[menu]
+background = "#263530"
+[notifications]
+background = "#263530"
+[tooltip]
+background = "#263530"
+
 [font]
 base-size = 16

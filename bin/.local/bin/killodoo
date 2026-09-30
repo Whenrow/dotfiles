@@ -1,0 +1,22 @@
+#!/bin/sh
+
+pids=$(
+    ps -eo pid=,args= | awk '
+        {
+            pid = $1
+            $1 = ""
+            sub(/^ /, "", $0)
+            if ($0 ~ /(^|[[:space:]])([^[:space:]]*\/)?odoo-bin([[:space:]]|$)/) {
+                print pid
+            }
+        }
+    '
+)
+
+if [ -z "$pids" ]; then
+    echo "odoo-bin is not running"
+    exit 0
+fi
+
+kill $pids
+echo "Stopped odoo-bin: $pids"

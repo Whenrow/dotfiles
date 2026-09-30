@@ -1,5 +1,8 @@
 -- Change the default Omarchy look'n'feel.
 
+local active_border_color = { colors = { "rgba(6FA85Eee)", "rgba(6FA85Eee)" }, angle = 45 }
+local inactive_border_color = "rgba(595959aa)"
+
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#general
 hl.config({
   general = {
@@ -7,6 +10,10 @@ hl.config({
     gaps_in = 2,
     gaps_out = 2,
     border_size = 2,
+    col = {
+      active_border = active_border_color,
+      inactive_border = inactive_border_color,
+    },
 
     -- Change to niri-like side-scrolling layout.
     layout = "scrolling",
